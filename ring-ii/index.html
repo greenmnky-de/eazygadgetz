@@ -328,7 +328,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   .sticky{display:none}
 }
 @media (max-width:959px){ .nav{display:none} .site .btn{margin-left:auto} }
-@media (max-width:560px){ .seller{display:none} .uses{grid-template-columns:repeat(5,80%)} .inbox{grid-template-columns:96px minmax(0,1fr);padding:20px;gap:16px} .spec-list div{grid-template-columns:118px 1fr} .sz-row i{width:calc(var(--d)*.72px);height:calc(var(--d)*.72px);border-width:7px} }
+@media (max-width:560px){ .seller{display:none} .inbox{grid-template-columns:96px minmax(0,1fr);padding:20px;gap:16px} .spec-list div{grid-template-columns:118px 1fr} .sz-row i{width:calc(var(--d)*.72px);height:calc(var(--d)*.72px);border-width:7px} }
 @media (max-width:640px){
   .table-box{background:transparent;border:0;overflow:visible}
   table,tbody,tr,td{display:block;min-width:0;width:auto}
@@ -340,6 +340,13 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   td.us{padding-bottom:16px}
   td.us::before{color:var(--accent)}
   .tabs button{padding:0 12px;font-size:14px}
+  /* Anwendung: auf dem Handy kein seitlicher Scroller, sondern kompakte Zeilen */
+  .uses{grid-template-columns:1fr;gap:10px;overflow:visible;scroll-snap-type:none;padding-bottom:0}
+  .use{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:center}
+  .use img{aspect-ratio:1/1;height:100%;min-height:112px}
+  .use figcaption{padding:14px 16px}
+  .use figcaption b{font-size:17px}
+  .use figcaption span{font-size:14.5px;line-height:1.35}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
