@@ -67,7 +67,7 @@ IMPRESSUM = """
 <div class="card">
 <p><strong>Kontakt</strong></p>
 <p>Telefon: <a href="tel:+4960214376840">+49 6021 43 76 84 - 0</a></p>
-<p>E-Mail: <a href="mailto:support@greenmnky.de">support@greenmnky.de</a></p>
+<p>E-Mail: <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a></p>
 </div>
 <div class="card">
 <p><strong>Vertretungsberechtigter Geschäftsführer</strong><br>Ziya Orhan</p>
@@ -89,7 +89,7 @@ DATENSCHUTZ = """
 <h2>1. Verantwortlicher</h2>
 <div class="card">
 <p>GREENMNKY GmbH<br>Lindigstraße 1<br>63801 Kleinostheim<br>Deutschland</p>
-<p>Telefon: +49 6021 43 76 84 - 0<br>E-Mail: <a href="mailto:support@greenmnky.de">support@greenmnky.de</a></p>
+<p>Telefon: +49 6021 43 76 84 - 0<br>E-Mail: <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a></p>
 </div>
 
 <h2>2. Hosting und Server-Logfiles</h2>
@@ -110,7 +110,7 @@ DATENSCHUTZ = """
 <p>Diese Seite verlinkt auf unsere Profile bei Instagram und TikTok sowie auf unseren Shop. Für die Inhalte und die Datenverarbeitung der verlinkten Seiten sind deren Betreiber verantwortlich. Es sind keine Plugins dieser Dienste eingebunden; Daten werden erst übertragen, wenn du einen Link anklickst.</p>
 
 <h2>7. Deine Rechte</h2>
-<p>Du hast gegenüber uns das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21). Wende dich dafür an <a href="mailto:support@greenmnky.de">support@greenmnky.de</a>.</p>
+<p>Du hast gegenüber uns das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21). Wende dich dafür an <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>.</p>
 <p>Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren. Für uns zuständig ist das Bayerische Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach, <a href="https://www.lda.bayern.de" rel="noopener">www.lda.bayern.de</a>.</p>
 
 <h2>8. Änderungen</h2>
