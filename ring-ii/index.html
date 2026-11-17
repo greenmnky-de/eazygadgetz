@@ -711,8 +711,8 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
         <li><a href="https://greenmnky.de/policies/shipping-policy">Versand und Zahlung</a></li>
       </ul>
     </div>
-    <!-- TODO Produktsicherheit (GPSR): Hersteller mit Anschrift und ggf. EU-Verantwortlichen ergänzen, sobald die Angaben vorliegen. -->
-    <div class="legal">
+    <div class="legal" id="produktsicherheit">
+      <p><strong>Hinweise zur Produktsicherheit.</strong> Verantwortlich für dieses Produkt ist der in der EU ansässige Wirtschaftsakteur: GREENMNKY GmbH, Lindigstraße 1, 63801 Kleinostheim, Deutschland, <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>. Du findest den für das Produkt verantwortlichen Wirtschaftsakteur auch auf dem Produkt bzw. der Verpackung oder in einer dem Produkt beigefügten Unterlage.</p>
       <p>Hinweis: Der OnCtrl Ring II enthält einen fest eingebauten Lithium-Akku. Nicht ins Feuer werfen, nicht öffnen und nicht über den Hausmüll entsorgen. Altgeräte gehören zu einer Sammelstelle für Elektroaltgeräte.</p>
       <p>GoPro, HERO und MAX sind Marken der GoPro Inc. DJI und Osmo sind Marken von SZ DJI Technology Co., Ltd. Insta360 ist eine Marke der Arashi Vision Inc. Apple, iPhone und iOS sind Marken der Apple Inc. Android ist eine Marke der Google LLC. HarmonyOS ist eine Marke der Huawei Technologies Co., Ltd. OnCtrl ist eine Marke ihres Inhabers. Die Nennung dient nur dem Hinweis auf die Kompatibilität.</p>
     </div>
@@ -732,7 +732,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   var UTM=(function(){
     /* UTMs aus dem eingehenden Link (Insta/TikTok/Ads) an den Checkout durchreichen, sonst Default */
     try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
-      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
       if(has)return o.toString();}catch(e){}
     return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=ring2";
   })();
