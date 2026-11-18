@@ -71,6 +71,10 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(10,11,13,.82);backd
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.02em}
 .logo i{width:22px;height:22px;border-radius:50%;border:3px solid #2A2E35;box-shadow:inset 0 0 0 2px var(--led),0 0 12px var(--led);transition:box-shadow .4s ease}
 .logo small{font-weight:400;color:var(--muted);font-size:13px;letter-spacing:0}
+.brand{display:grid;gap:2px;line-height:1}
+.home{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:3px 0;color:var(--muted);text-decoration:none;width:max-content}
+.home::before{content:"";width:7px;height:7px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:1px}
+.home:hover{color:var(--text)}
 .seller{color:var(--muted);font-size:11px;border-left:1px solid var(--line);padding-left:14px;margin-left:-12px}
 .nav{display:flex;gap:24px;margin-left:auto}
 .nav a{text-decoration:none;font-size:15px;color:var(--muted)}
@@ -362,9 +366,13 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 
 <header class="site">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="OnCtrl Ring II, zum Seitenanfang"><i aria-hidden="true"></i>Ring II <small>by OnCtrl</small></a>
+    <div class="brand">
+      <a class="home mono" href="/">eazygadgetz</a>
+      <a class="logo" href="#top" aria-label="OnCtrl Ring II, zum Seitenanfang"><i aria-hidden="true"></i>Ring II <small>by OnCtrl</small></a>
+    </div>
     <span class="seller mono">Verkauf durch GREENMNKY</span>
     <nav class="nav" aria-label="Seitenbereiche">
+      <a href="/">Alle Gadgets</a>
       <a href="#modi">Modi</a>
       <a href="#bedienung">Bedienung</a>
       <a href="#kompatibel">Kompatibel</a>
