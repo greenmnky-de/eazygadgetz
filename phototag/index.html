@@ -3,333 +3,288 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PhotoTag – Bluetooth-Tracker mit Foto-Display für iPhone &amp; Android</title>
-<meta name="description" content="PhotoTag: Bluetooth-Tracker mit Farb-E-Ink-Display. Dein Foto drauf, Kontaktkarte per Tastendruck, Ortung über Apple „Wo ist?“ oder Google Find Hub. 29,99 €, ab 2 Stück versandkostenfrei.">
-<meta property="og:title" content="PhotoTag: Dein Foto. Dein Tracker.">
-<meta property="og:description" content="Bluetooth-Tracker mit Foto-Display für Schlüssel, Rucksack und Koffer. iPhone &amp; Android. 29,99 €, ab 2 Stück versandkostenfrei.">
+<title>PhotoTag Foto-Tracker</title>
+<meta name="description" content="PhotoTag: Bluetooth-Tracker mit E-Ink-Display für dein Foto und deine Kontaktkarte. Funktioniert mit Apple „Wo ist?“ oder Google Find Hub. 29,99 €.">
+<meta property="og:title" content="PhotoTag: Dein Foto drauf. Deine Sachen im Blick.">
+<meta property="og:description" content="Tracker mit E-Ink-Display für iPhone und Android. 29,99 €, ab 2 Stück versandkostenfrei.">
 <meta property="og:type" content="product">
 <meta property="og:url" content="https://eazygadgetz.de/phototag/">
-<meta property="og:image" content="https://eazygadgetz.de/phototag/img/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="1200">
+<meta property="og:image" content="https://eazygadgetz.de/phototag/img/koffer.webp">
+<meta property="og:image:width" content="1400">
+<meta property="og:image:height" content="1400">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="eazygadgetz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://eazygadgetz.de/phototag/img/og.jpg">
+<meta name="twitter:image" content="https://eazygadgetz.de/phototag/img/koffer.webp">
 <link rel="canonical" href="https://eazygadgetz.de/phototag/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#0A0B0D">
-<link rel="preload" href="/ring-ii/fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/tag-schwarz.webp" as="image">
+<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/var-black.webp" as="image">
 <style>
-/* Layout idea: same matte-black system as the Ring II page. Here the only light is the E-Ink display,
-   so the hero is built around the tag itself: tap "Contact" and the display flips to the contact card. */
+/* Layout: the page behaves like the tag itself. E-paper grey surface, the display's four inks
+   (black, white, red, yellow), one big pressable device in the hero, specs set like a label. */
 :root{
-  --bg:#0A0B0D;
-  --bg2:#101216;
-  --card:#15181D;
-  --card2:#1B1F25;
-  --line:rgba(255,255,255,.10);
-  --line2:rgba(255,255,255,.18);
-  --text:#F2F3F0;
-  --muted:#A2A7AE;
-  --orange:#FF7A1A;
-  --accent:var(--orange);
-  --accent-hi:color-mix(in srgb,var(--accent) 82%,#fff);
-  --accent-ink:#0A0B0D;
-  --led:#FF7A1A;
-  --paper:#F4F5F1;
-  --font:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --paper:#E9E8E3;
+  --paper-hi:#F5F4F0;
+  --ink:#151515;
+  --ink-soft:#4A4944;
+  --red:#C02E1C;
+  --yellow:#F0C233;
+  --line:rgba(21,21,21,.14);
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --radius:22px;
-  --wrap:1200px;
-  color-scheme:dark;
+  --wrap:1180px;
+  color-scheme:light;
 }
-@font-face{font-family:"Rubik";src:url("/ring-ii/fonts/rubik.woff2") format("woff2");font-weight:300 900;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("/ring-ii/fonts/plexmono-400.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("/ring-ii/fonts/plexmono-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Archivo";src:url("fonts/archivo.woff2") format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/plexmono-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/plexmono-500.woff2") format("woff2");font-weight:500;font-display:swap}
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.55}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;font-stretch:100%}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
-h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--display);font-stretch:118%;font-weight:820;letter-spacing:-.025em;line-height:1.02;margin:0;text-wrap:balance}
 p{margin:0}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
-.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase}
-.g{color:var(--text)}
-.hero .g,.final .g{color:var(--accent)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+.mark{background:linear-gradient(transparent 58%,var(--yellow) 58%,var(--yellow) 92%,transparent 92%);padding:0 .06em}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* top bar + header */
-.bar{background:#13161B;color:#D9DCE0;border-bottom:1px solid var(--line);text-align:center;padding:9px 16px;font-weight:500}
-header.site{position:sticky;top:0;z-index:40;background:rgba(10,11,13,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.site .wrap{display:flex;align-items:center;gap:26px;height:64px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.02em}
-.logo i{width:18px;height:22px;border-radius:4px 7px 4px 4px;background:#2A2E35;border:2px solid #3A3F47;position:relative;box-shadow:0 0 12px color-mix(in srgb,var(--led) 60%,transparent);transition:box-shadow .4s ease}
-.logo i::after{content:"";position:absolute;left:3px;right:3px;top:6px;bottom:3px;background:var(--paper);border-radius:1px}
-.logo small{font-weight:400;color:var(--muted);font-size:13px;letter-spacing:0}
-.seller{color:var(--muted);font-size:11px;border-left:1px solid var(--line);padding-left:14px;margin-left:-12px}
+.bar{background:var(--ink);color:var(--paper-hi);text-align:center;padding:9px 16px}
+.bar b{color:var(--yellow);font-weight:500}
+header.site{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-stretch:125%;font-weight:860;font-size:21px;letter-spacing:-.03em}
+.logo svg{flex:none}
+.seller{color:var(--ink-soft);font-size:11px;border-left:1px solid var(--line);padding-left:14px;margin-left:-12px}
 .nav{display:flex;gap:24px;margin-left:auto}
-.nav a{text-decoration:none;font-size:15px;color:var(--muted)}
-.nav a:hover{color:var(--text)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;white-space:nowrap;transition:transform .15s ease,background .15s ease,box-shadow .2s ease}
-.btn:hover{background:var(--accent-hi);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 14%,transparent)}
+.nav a{text-decoration:none;font-size:15px;color:var(--ink-soft)}
+.nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:0;background:var(--red);color:#fff;font:inherit;font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{background:#A82615}
 .btn:active{transform:translateY(1px)}
 .btn svg{transition:transform .2s ease}
 .btn:hover svg{transform:translateX(3px)}
 .btn.small{min-height:44px;padding:0 18px;font-size:15px}
-.btn.ghost{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1.5px var(--line2)}
-.btn.ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1.5px var(--text)}
+.btn.ink{background:var(--ink)}
+.btn.ink:hover{background:#000}
+.btn.light{background:var(--paper-hi);color:var(--ink)}
+.btn.light:hover{background:#fff}
 
 /* hero */
-.hero{position:relative;padding:34px 0 30px;overflow:hidden}
-.hero::before{content:"";position:absolute;right:-20%;top:-10%;width:90vw;max-width:1100px;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--led) 18%,transparent),transparent 72%);transition:background .5s ease;pointer-events:none}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1fr;gap:22px;grid-template-areas:"copy" "stage" "buy"}
+.hero{padding:36px 0 28px}
+.hero .wrap{display:grid;grid-template-columns:1fr;gap:22px;grid-template-areas:"copy" "stage" "buy"}
 .hero-copy{grid-area:copy}
 .hero-stage{grid-area:stage}
 .hero-buy{grid-area:buy}
-.eyebrow{color:var(--muted);margin-bottom:18px;display:flex;flex-wrap:wrap;gap:6px 16px}
-.eyebrow span{display:inline-flex;align-items:center;gap:7px}
-.eyebrow span::before{content:"";width:7px;height:7px;background:var(--accent);border-radius:50%}
-.hero h1{font-size:clamp(2.9rem,8.4vw,5.6rem);font-weight:900;text-transform:uppercase;letter-spacing:-.025em;line-height:.98}
-.hero h1 .g{display:block}
-.lead{margin-top:20px;font-size:clamp(1.05rem,1.6vw,1.22rem);max-width:33em;color:var(--muted)}
-.lead b{color:var(--text);font-weight:600}
+.eyebrow{color:var(--ink-soft);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:6px 14px}
+.eyebrow span{display:inline-flex;align-items:center;gap:6px}
+.eyebrow span::before{content:"";width:7px;height:7px;background:var(--red);border-radius:2px}
+.hero h1{font-size:clamp(2.55rem,7.4vw,5rem)}
+.lead{margin-top:18px;font-size:clamp(1.05rem,1.6vw,1.2rem);max-width:34em;color:var(--ink-soft)}
 
-.stage{position:relative;aspect-ratio:1/1;max-width:560px;margin:0 auto;width:100%}
-.stage::before{content:"";position:absolute;inset:8%;border-radius:50%;border:1px solid var(--line);box-shadow:0 0 0 46px rgba(255,255,255,.012),0 0 0 92px rgba(255,255,255,.008)}
-.prod{position:absolute;inset:0;animation:float 7s ease-in-out infinite}
-.prod img{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .45s ease}
-.prod img.on{opacity:1}
-/* the e-ink display: the body sits at 21 % / 10 % with 58 % × 75.5 %, the panel at 27 % / 24 % with 45.7 %²;
-   same spot on all three colours because the renders are framed identically */
-.screen{position:absolute;left:27.1%;top:24.1%;width:45.7%;height:45.7%;border-radius:2.5% / 2.5%;background:#EDEDE6;color:#111;opacity:0;transform:scale(.985);transition:opacity .35s ease;pointer-events:none;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;font-size:clamp(9px,2.1vw,13px);line-height:1.25;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
-.screen.on{opacity:1;transition:opacity .08s steps(2,end)}
-.screen::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.055) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0 1px,transparent 1px 3px);mix-blend-mode:multiply;pointer-events:none}
-.screen header{background:#C8281E;color:#F4F5F1;font-weight:700;padding:5% 7%;font-size:1.05em;letter-spacing:-.01em}
-.screen dl{margin:0;padding:5% 7%;display:grid;gap:4%;align-content:center}
-.screen dl div{display:grid;grid-template-columns:auto 1fr;gap:0 .6em}
-.screen dt{font-weight:700;white-space:nowrap}
-.screen dd{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
-.screen footer{padding:4% 7%;border-top:1px solid rgba(0,0,0,.25);font-size:.9em;font-weight:500;background:transparent;color:#111}
-.hotspot{position:absolute;left:27.5%;top:13.5%;width:21%;height:7.5%;border:0;background:transparent;cursor:pointer;border-radius:999px;z-index:3;padding:0}
-.hotspot::after{content:"";position:absolute;inset:-5px;border-radius:999px;border:2px solid var(--led);animation:ping 2.2s ease-out infinite}
-.tap{position:absolute;z-index:2;left:27%;top:2.5%;display:flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);padding:8px 13px;border-radius:999px;white-space:nowrap;pointer-events:none;font-weight:500}
-.tap svg{transform:rotate(90deg)}
-@keyframes float{0%,100%{transform:translateY(0) rotate(-.8deg)}50%{transform:translateY(-10px) rotate(.8deg)}}
-@keyframes ping{0%{opacity:.9;transform:scale(.94)}80%,100%{opacity:0;transform:scale(1.25)}}
-.modes{position:relative;z-index:2;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px}
-.modes button{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 16px 0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--card);font:inherit;font-size:15px;cursor:pointer;color:var(--muted)}
-.modes button i{width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-.modes button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
-.mode-text{text-align:center;color:var(--muted);margin:14px auto 0;max-width:30em;min-height:3.1em;font-size:15.5px}
-.mode-text b{color:var(--text);font-weight:600}
+.stage{position:relative;aspect-ratio:1/1;max-width:560px;margin:0 auto;width:100%;display:grid;place-items:center}
+.stage::before{content:"";position:absolute;inset:4%;border-radius:50%;background:var(--yellow);
+  -webkit-mask:radial-gradient(circle,#000 1.15px,transparent 1.6px) 0 0/7px 7px,radial-gradient(closest-side,#000 62%,transparent 100%);
+  -webkit-mask-composite:source-in;mask:radial-gradient(circle,#000 1.15px,transparent 1.6px) 0 0/7px 7px intersect,radial-gradient(closest-side,#000 62%,transparent 100%)}
+.stage::after{content:"";position:absolute;inset:17%;border-radius:50%;background:var(--paper-hi);opacity:.55}
+.device{position:relative;z-index:1;width:min(64%,330px);animation:float 6s ease-in-out infinite}
+.device img{width:100%;transition:opacity .35s ease}
+.device .card{position:absolute;inset:0;opacity:0}
+.device[data-mode="card"] .card{opacity:1}
+.device[data-mode="card"] .photo{opacity:0}
+.hotspot{position:absolute;left:9%;top:4.6%;width:37.6%;height:10.4%;border:0;background:transparent;cursor:pointer;border-radius:10px;z-index:3}
+.hotspot::after{content:"";position:absolute;inset:-6px;border-radius:14px;border:2px solid var(--red);animation:ping 2.2s ease-out infinite}
+.press{position:absolute;z-index:2;left:27.8%;bottom:calc(95.4% + 12px);transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper-hi);padding:8px 12px;border-radius:999px;white-space:nowrap;pointer-events:none}
+.press svg{transform:rotate(90deg)}
+.modes{position:relative;z-index:2;display:flex;gap:6px;justify-content:center;margin-top:14px}
+.modes button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--paper-hi);font:inherit;font-size:15px;cursor:pointer;color:var(--ink)}
+.modes button[aria-pressed="true"]{background:var(--ink);color:var(--paper-hi);border-color:var(--ink)}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+@keyframes ping{0%{opacity:.9;transform:scale(.96)}80%,100%{opacity:0;transform:scale(1.18)}}
 
-.buybox{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;gap:20px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.buybox{background:var(--paper-hi);border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;gap:20px}
 .price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.price strong{font-size:42px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.price .was{color:var(--muted);font-size:14px}
+.price strong{font-family:var(--display);font-stretch:112%;font-size:40px;font-weight:820;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.price .was{color:var(--ink-soft);font-size:14px}
 fieldset{border:0;margin:0;padding:0;min-width:0}
-legend{padding:0;margin-bottom:10px;font-weight:700;font-size:15px}
-legend span{color:var(--muted);font-weight:400}
-.col{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.col input{position:absolute;opacity:0;width:1px;height:1px}
-.col label{display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 12px;border:1.5px solid var(--line2);border-radius:14px;cursor:pointer;background:var(--bg2);font-weight:600;font-size:15px;transition:border-color .15s ease}
-.col label i{width:22px;height:22px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);flex:none}
-.col label:hover{border-color:rgba(255,255,255,.34)}
-.col input:checked+label{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--bg2))}
-.col input:focus-visible+label{outline:3px solid var(--accent);outline-offset:3px}
+legend{padding:0;margin-bottom:10px;font-weight:700;font-size:15px;display:flex;gap:8px;align-items:baseline}
+legend .mono{color:var(--ink-soft);font-weight:400;letter-spacing:.04em;text-transform:none;font-size:13px}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.swatch{position:relative}
+.swatch input{position:absolute;opacity:0;width:1px;height:1px}
+.swatch label{display:flex;align-items:center;gap:9px;min-height:46px;padding:0 15px 0 8px;border:1.5px solid var(--line);border-radius:999px;cursor:pointer;font-size:15px;background:#fff}
+.swatch label i{width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.swatch input:checked+label{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.swatch input:focus-visible+label{outline:3px solid var(--ink);outline-offset:3px}
+.slots{display:grid;gap:10px;margin-top:12px}
+.slot{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.slot .mono{width:52px;color:var(--ink-soft);text-transform:none}
+.slot .swatch label{min-height:44px;padding:0 12px 0 7px;font-size:14px}
+.slot .swatch label i{width:24px;height:24px}
+.note{font-size:14px;color:var(--ink-soft);margin-top:10px;display:flex;gap:8px;align-items:center}
+.note::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);flex:none}
 .qty{display:grid;gap:8px}
 .qty input{position:absolute;opacity:0;width:1px;height:1px}
-.qty label{display:grid;grid-template-columns:1fr auto;grid-template-areas:"q sum" "t t";align-items:center;gap:6px 12px;min-height:62px;padding:10px 16px;border:1.5px solid var(--line2);border-radius:16px;cursor:pointer;background:var(--bg2);transition:border-color .15s ease}
-.qty label:hover{border-color:rgba(255,255,255,.34)}
+.qty label{display:grid;grid-template-columns:1fr auto;grid-template-areas:"q sum" "t t";align-items:center;gap:6px 12px;min-height:60px;padding:10px 16px;border:1.5px solid var(--line);border-radius:16px;cursor:pointer;background:#fff}
 .qty .q{grid-area:q;display:grid;line-height:1.25}
 .qty .q b{font-size:16px}
-.qty .q small{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.qty .tag{grid-area:t;font-family:var(--mono);font-size:12px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent);padding:3px 8px;border-radius:6px;justify-self:start}
-.qty .tag.best{background:var(--accent);color:var(--accent-ink)}
-.qty .sum{grid-area:sum;font-variant-numeric:tabular-nums;font-weight:700}
+.qty .q small{font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.qty label .tag{grid-area:t;font-family:var(--mono);font-size:12px;background:var(--yellow);padding:3px 8px;border-radius:6px;justify-self:start}
+.qty label .sum{grid-area:sum}
+.qty label .best{background:var(--ink);color:var(--yellow)}
 @media (min-width:480px){.qty label{grid-template-columns:auto 1fr auto;grid-template-areas:"q t sum"}}
-.qty input:checked+label{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--bg2))}
-.qty input:focus-visible+label{outline:3px solid var(--accent);outline-offset:3px}
+.qty label .sum{font-variant-numeric:tabular-nums;font-weight:700}
+.qty input:checked+label{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.qty input:focus-visible+label{outline:3px solid var(--ink);outline-offset:3px}
 .cta{display:grid;gap:10px}
 .cta .btn{width:100%;min-height:58px;font-size:18px}
-.fine{font-size:13.5px;color:var(--muted);line-height:1.45}
-.fine a{color:var(--muted)}
+.fine{font-size:13.5px;color:var(--ink-soft);line-height:1.45}
+.fine a{color:var(--ink-soft)}
 .pay{display:flex;flex-wrap:wrap;gap:6px}
-.pay span{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--bg2);color:var(--muted)}
+.pay span{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--paper)}
 
-.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:36px;position:relative}
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:34px}
 .trust ul{list-style:none;margin:0 auto;padding:0 20px;max-width:var(--wrap);display:grid;grid-template-columns:repeat(2,1fr)}
 .trust li{display:flex;align-items:center;gap:12px;padding:18px 8px;font-size:15px;font-weight:600}
 .trust svg{flex:none}
 
 /* sections */
-section{padding:88px 0}
-.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:48em}
-.sec-head .mono{color:var(--accent)}
-.sec-head h2{font-size:clamp(2.1rem,5vw,3.7rem);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.95}
-.sec-head p{color:var(--muted);font-size:18px;max-width:38em}
-.paper{background:var(--paper);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
-.paper img{width:100%;aspect-ratio:1/1;object-fit:cover}
+section{padding:84px 0}
+.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:46em}
+.sec-head .mono{color:var(--red)}
+.sec-head h2{font-size:clamp(2rem,4.6vw,3.4rem)}
+.sec-head p{color:var(--ink-soft);font-size:18px;max-width:38em}
 
-/* display section */
-.modi{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:center}
-.modi figure{margin:0}
-.mlist{display:grid;gap:12px}
-.m{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 22px 22px 26px;overflow:hidden}
-.m::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--c);box-shadow:0 0 18px var(--c)}
-.m .mono{color:var(--c)}
-.m h3{font-size:26px;margin:6px 0 8px}
-.m p{color:var(--muted)}
-.m ul{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
-.m li{font-size:13.5px;padding:4px 10px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:var(--text)}
-.switch{color:var(--muted);font-size:15px;margin-top:6px}
-.switch b{color:var(--text)}
+.jobs{display:grid;gap:18px}
+.job{background:var(--paper-hi);border-radius:var(--radius);padding:26px;display:grid;gap:16px;border:1px solid var(--line)}
+.job .num{font-family:var(--mono);font-size:13px;color:var(--ink-soft)}
+.job h3{font-size:30px}
+.job p{color:var(--ink-soft)}
+.job .vis{aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--paper);display:grid;place-items:center;position:relative}
+.job .vis img{width:100%;height:100%;object-fit:cover}
+.vis.ring{background:var(--ink);color:var(--paper-hi)}
+.vis.ring .r{position:absolute;border-radius:50%;border:1.5px solid rgba(240,194,51,.65)}
+.vis.ring .r1{width:30%;aspect-ratio:1}
+.vis.ring .r2{width:52%;aspect-ratio:1;opacity:.6}
+.vis.ring .r3{width:74%;aspect-ratio:1;opacity:.35}
+.vis.ring .db{position:relative;font-family:var(--display);font-stretch:125%;font-weight:860;font-size:44px;letter-spacing:-.03em;color:var(--yellow)}
+.vis.ring .db small{display:block;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--paper-hi);font-weight:400}
+.vis.cardvis{background:#D9DAD6}
+.vis.cardvis img{width:72%;height:auto;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
 
-/* uses */
-.uses{display:grid;grid-template-columns:repeat(4,minmax(250px,1fr));gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
-.use{scroll-snap-align:start;margin:0;background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
-.use img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.uses{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.use{scroll-snap-align:start;margin:0;background:var(--paper-hi);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.use img{aspect-ratio:1/1;object-fit:cover;width:100%}
 .use figcaption{padding:18px 18px 20px;display:grid;gap:4px}
-.use figcaption b{font-size:20px;letter-spacing:-.01em}
-.use figcaption span{color:var(--muted);font-size:15.5px}
+.use figcaption b{font-family:var(--display);font-stretch:118%;font-size:21px;letter-spacing:-.02em}
+.use figcaption span{color:var(--ink-soft);font-size:15.5px}
 
-/* finding */
-.ctrl{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;align-items:start}
-.tabs{display:flex;gap:6px;padding:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;width:max-content;max-width:100%;overflow-x:auto}
-.tabs button{min-height:44px;padding:0 18px;border-radius:999px;border:0;background:transparent;color:var(--muted);font:inherit;font-size:15px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
-.tabs button[aria-selected="true"]{background:var(--text);color:var(--bg)}
-.panel{margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);overflow:hidden}
-.panel[hidden]{display:none}
-.row{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:0}
-.row .ic{width:44px;height:44px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--accent)}
-.row b{display:block;font-size:16px}
-.row span{color:var(--muted);font-size:15px}
-.ctrl-vis{position:relative}
-.chip{position:absolute;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(21,24,29,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--line2);font-size:14px}
-.chip b{color:var(--text);font-weight:600}
-.phones{margin-top:14px;display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;padding:20px 24px;border-radius:var(--radius);border:1px dashed var(--line2);color:var(--muted)}
-.phones b{color:var(--text)}
+.howto{display:grid;gap:30px;align-items:center}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;background:var(--paper-hi);border:1px solid var(--line);border-radius:18px;padding:20px}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:var(--ink);color:var(--yellow);font-family:var(--display);font-stretch:125%;font-weight:860;font-size:24px}
+.steps b{display:block;font-size:18px;margin-bottom:2px}
+.steps span{color:var(--ink-soft)}
+.howto .cord{justify-self:center;width:min(42%,190px)}
 
-/* colours */
-.farben{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;align-items:center}
-.farben .pick{display:grid;gap:10px}
-.farben .pick button{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:16px;text-align:left;min-height:68px;padding:12px 18px;border-radius:18px;border:1.5px solid var(--line2);background:var(--card);color:var(--text);font:inherit;cursor:pointer;transition:border-color .15s ease}
-.farben .pick button:hover{border-color:var(--text)}
-.farben .pick button i{width:34px;height:34px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-.farben .pick button b{display:block;font-size:18px}
-.farben .pick button small{color:var(--muted);font-size:14px}
-.farben .pick button span.mono{color:var(--muted)}
+.eink{display:grid;gap:26px;align-items:center}
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+.compare figure{margin:0;display:grid;gap:10px}
+.compare img{border-radius:12px;width:100%;aspect-ratio:1/1;object-fit:cover}
+.compare figcaption{text-align:center;color:var(--ink-soft)}
+.compare .arrow{width:34px;height:34px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.inks{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.inks span{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--paper-hi);border:1px solid var(--line);font-size:14px}
+.inks i{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
 
-/* comparison */
-.table-box{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--line);background:var(--card)}
-table{width:100%;border-collapse:collapse;min-width:620px}
-th,td{padding:18px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:16px;vertical-align:top}
+.table-box{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--line);background:var(--paper-hi)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{padding:18px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:16px}
 tr:last-child td{border-bottom:0}
-thead th{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:500;color:var(--muted)}
-th.us,td.us{background:color-mix(in srgb,var(--accent) 7%,transparent)}
-thead th.us{color:var(--accent)}
-td.us{font-weight:600}
-td.no{color:var(--muted)}
+thead th{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--ink-soft)}
+thead th.us{color:var(--ink)}
+td.us{background:rgba(240,194,51,.16);font-weight:700}
+th.us{background:rgba(240,194,51,.16)}
+.yes{display:inline-flex;align-items:center;gap:8px}
+.no{color:var(--ink-soft)}
 
-/* size + box */
-.sizes{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
-.sz{display:grid;gap:14px}
-.sz p{color:var(--muted);font-size:15.5px}
-.inbox{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:grid;gap:14px;align-content:start;align-self:start}
-.inbox h3{font-size:24px}
-.inbox ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
-.inbox li{display:grid;grid-template-columns:34px 1fr;font-size:16px}
-.inbox li b{color:var(--accent)}
-.inbox .fine{margin-top:4px}
+.gift{background:var(--ink);color:var(--paper-hi)}
+.gift .wrap{display:grid;gap:34px;align-items:center}
+.gift .mono{color:var(--yellow)}
+.gift h2{font-size:clamp(2.2rem,5vw,3.8rem);margin:14px 0 18px}
+.gift p{color:#CFCDC6;font-size:18px;max-width:34em}
+.gift img{border-radius:var(--radius)}
+.tip{margin-top:24px;border:1px dashed rgba(240,194,51,.6);border-radius:16px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;color:var(--paper-hi)}
+.tip b{color:var(--yellow)}
+.gift .btn{margin-top:24px}
 
-/* specs */
 .specs{display:grid;gap:28px}
-.spec-list{margin:0;display:grid;border-top:1px solid var(--line2)}
+.spec-list{margin:0;display:grid;grid-template-columns:1fr;border-top:1px solid var(--ink)}
 .spec-list div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
-.spec-list dt{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.spec-list dt{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
 .spec-list dd{margin:0;font-variant-numeric:tabular-nums}
-.box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;gap:12px;align-content:start;align-self:start}
-.box h3{font-size:22px}
-.box ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:6px}
+.box{background:var(--paper-hi);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;gap:12px;align-content:start}
+.box h3{font-size:24px}
+.box ul{margin:0;padding-left:18px;color:var(--ink-soft);display:grid;gap:6px}
 
-/* faq */
-.faq{display:grid;gap:10px;max-width:880px}
-details{background:var(--card);border:1px solid var(--line);border-radius:16px}
-summary{list-style:none;cursor:pointer;padding:20px 56px 20px 22px;font-weight:600;font-size:17.5px;position:relative;min-height:44px}
+.faq{display:grid;gap:10px;max-width:860px}
+details{background:var(--paper-hi);border:1px solid var(--line);border-radius:16px}
+summary{list-style:none;cursor:pointer;padding:20px 56px 20px 22px;font-weight:700;font-size:17.5px;position:relative;min-height:44px}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"";position:absolute;right:24px;top:50%;width:11px;height:11px;margin-top:-8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s ease}
+summary::after{content:"";position:absolute;right:22px;top:50%;width:12px;height:12px;margin-top:-8px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);transition:transform .2s ease}
 details[open] summary::after{transform:rotate(-135deg);margin-top:-2px}
-details p{padding:0 22px 20px;color:var(--muted);max-width:46em}
+details p{padding:0 22px 20px;color:var(--ink-soft);max-width:44em}
 
-/* final */
-.final{text-align:center;padding:100px 0;position:relative;overflow:hidden}
-.final::before{content:"";position:absolute;left:50%;top:50%;width:900px;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%);pointer-events:none}
-.final .wrap{position:relative}
-.final h2{font-size:clamp(3rem,9vw,7rem);font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-.03em}
-.final p{color:var(--muted);margin:18px auto 30px;max-width:30em;font-size:18px}
-.final .btn{min-height:62px;font-size:18px;padding:0 36px}
+.final{text-align:center;padding:96px 0}
+.final h2{font-size:clamp(2.6rem,7vw,5.4rem)}
+.final p{color:var(--ink-soft);margin:16px auto 28px;max-width:30em}
+.final .btn{min-height:60px;font-size:18px;padding:0 34px}
 .final .fine{margin-top:14px}
 
-footer{background:#060708;border-top:1px solid var(--line);color:var(--muted);padding:54px 0 120px;font-size:14.5px}
+footer{background:var(--ink);color:#CFCDC6;padding:54px 0 120px;font-size:14.5px}
 footer .wrap{display:grid;gap:28px}
-footer a{color:var(--muted)}
-footer h4{margin:0 0 8px;color:var(--text);font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+footer a{color:#CFCDC6}
+footer h4{margin:0 0 8px;color:var(--paper-hi);font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.legal{border-top:1px solid var(--line);padding-top:22px;font-size:13px;display:grid;gap:8px}
+.legal{border-top:1px solid rgba(255,255,255,.14);padding-top:22px;font-size:13px;color:#A9A7A0;display:grid;gap:8px}
 
 /* sticky buy bar (phones) */
-.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:flex;align-items:center;gap:12px;background:var(--card2);color:var(--text);border:1px solid var(--line2);border-radius:18px;padding:8px 8px 8px 10px;box-shadow:0 14px 40px rgba(0,0,0,.5);transform:translateY(140%);visibility:hidden;transition:transform .3s ease,visibility 0s linear .3s}
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper-hi);border-radius:18px;padding:8px 8px 8px 10px;box-shadow:0 14px 40px rgba(0,0,0,.28);transform:translateY(140%);visibility:hidden;transition:transform .3s ease,visibility 0s linear .3s}
 .sticky.show{transform:none;visibility:visible;transition:transform .3s ease}
-.sticky img{width:46px;height:46px;object-fit:cover;border-radius:10px;background:#000}
+.sticky img{width:40px;height:52px;object-fit:contain}
 .sticky div{display:grid;line-height:1.2;margin-right:auto}
 .sticky b{font-size:15px}
-.sticky span{font-size:13px;color:var(--muted)}
+.sticky span{font-size:13px;color:#CFCDC6}
 .sticky .btn{min-height:46px;padding:0 18px;font-size:16px}
 
 @media (min-width:640px){
   .trust ul{grid-template-columns:repeat(4,1fr)}
+  .jobs{grid-template-columns:repeat(3,1fr)}
   .specs{grid-template-columns:1.4fr 1fr}
-  footer .wrap{grid-template-columns:2fr 1fr}
+  footer .wrap{grid-template-columns:2fr 1fr 1fr}
   .legal{grid-column:1/-1}
 }
 @media (min-width:960px){
-  .hero{padding:58px 0 18px}
-  .hero .wrap{grid-template-columns:1.02fr .98fr;grid-template-areas:"copy stage" "buy stage";column-gap:56px;row-gap:30px;align-items:start}
-  .hero-stage{position:sticky;top:90px}
+  .hero{padding:56px 0 18px}
+  .hero .wrap{grid-template-columns:1.02fr .98fr;grid-template-areas:"copy stage" "buy stage";column-gap:56px;row-gap:28px;align-items:start}
+  .hero-stage{position:sticky;top:96px}
+  .device{width:min(66%,380px)}
   .buybox{padding:26px}
-  .modi{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
-  .ctrl{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px}
-  .farben{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
-  .sizes{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .howto{grid-template-columns:1.3fr .7fr}
+  .eink{grid-template-columns:1fr 1fr}
+  .gift .wrap{grid-template-columns:1fr 1fr}
   .sticky{display:none}
 }
 @media (max-width:959px){ .nav{display:none} .site .btn{margin-left:auto} }
-@media (max-width:560px){ .seller{display:none} .bar-x{display:none} .logo small{display:none} .spec-list div{grid-template-columns:118px 1fr} .col{grid-template-columns:1fr 1fr 1fr} .col label{padding:8px 10px;font-size:14px;gap:8px} }
-@media (max-width:640px){
-  .table-box{background:transparent;border:0;overflow:visible}
-  table,tbody,tr,td{display:block;min-width:0;width:auto}
-  thead{display:none}
-  tr{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
-  td{border:0;padding:12px 18px}
-  td:first-child{font-weight:700;padding-top:16px;padding-bottom:4px}
-  td[data-l]::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;font-weight:400}
-  td.us{padding-bottom:16px}
-  td.us::before{color:var(--accent)}
-  .tabs button{padding:0 12px;font-size:14px}
-  .stage{margin-top:16px} .tap{top:-3%}
-  .uses{grid-template-columns:1fr;gap:10px;overflow:visible;scroll-snap-type:none;padding-bottom:0}
-  .use{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:center}
-  .use img{aspect-ratio:1/1;height:100%;min-height:112px}
-  .use figcaption{padding:14px 16px}
-  .use figcaption b{font-size:17px}
-  .use figcaption span{font-size:14.5px;line-height:1.35}
-}
+@media (max-width:560px){ .seller{display:none} }
+@media (max-width:420px){ .press{font-size:11px} .uses{grid-template-columns:repeat(4,82%)} }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -338,16 +293,19 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 </head>
 <body>
 
-<p class="bar mono">Ab 2 Stück versandkostenfrei<span class="bar-x"> · Versand mit DHL aus Deutschland</span> · 14 Tage Widerruf</p>
+<p class="bar mono">Ab 2 Stück <b>versandkostenfrei</b> · Ab 3 Stück <b>10 € günstiger</b> · Versand mit DHL aus Deutschland</p>
 
 <header class="site">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="PhotoTag, zum Seitenanfang"><i aria-hidden="true"></i>PhotoTag <small>bei eazygadgetz</small></a>
+    <a class="logo" href="#top" aria-label="PhotoTag, zum Seitenanfang">
+      <svg width="22" height="28" viewBox="0 0 22 28" aria-hidden="true"><rect x="1" y="4" width="20" height="23" rx="3" fill="#151515"/><rect x="4" y="9" width="14" height="14" rx="1.5" fill="#F0C233"/><rect x="3" y="5.6" width="8" height="2.2" rx="1" fill="#C02E1C"/><rect x="13" y="1" width="6" height="5" rx="1.5" fill="none" stroke="#151515" stroke-width="1.6"/></svg>
+      PhotoTag
+    </a>
     <span class="seller mono">Verkauf durch GREENMNKY</span>
     <nav class="nav" aria-label="Seitenbereiche">
-      <a href="#display">Display</a>
-      <a href="#finden">Finden</a>
+      <a href="#funktionen">Funktionen</a>
       <a href="#anwendung">Anwendung</a>
+      <a href="#technik">Technik</a>
       <a href="#faq">Fragen</a>
     </nav>
     <a class="btn small" href="#kaufen">Kaufen · 29,99 €</a>
@@ -358,38 +316,26 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 <section class="hero" aria-labelledby="h1">
   <div class="wrap">
     <div class="hero-copy">
-      <p class="eyebrow mono"><span>iPhone &amp; Android</span><span>Farb-E-Ink-Display</span><span>Bis zu 10 Monate Batterie</span></p>
-      <h1 id="h1">Dein Foto.<span class="g">Dein Tracker.</span></h1>
-      <p class="lead"><b>PhotoTag</b> ist ein Bluetooth-Tracker mit Farb-E-Ink-Display. Er zeigt dein Lieblingsfoto oder auf Tastendruck deine Kontaktkarte. Und er meldet dir, wo Schlüssel, Rucksack oder Koffer gerade sind: über Apple „Wo ist?“ auf dem iPhone oder Google Find Hub auf Android.</p>
+      <p class="eyebrow mono"><span>E-Ink-Display</span><span>iPhone &amp; Android</span><span>Bis zu 10 Monate Akku</span></p>
+      <h1 id="h1">Dein Foto drauf.<br>Deine Sachen <span class="mark">im&nbsp;Blick.</span></h1>
+      <p class="lead">PhotoTag zeigt dein Lieblingsfoto und auf Knopfdruck deine Kontaktkarte. Dazu findet er Schlüssel, Koffer und Rucksack über Apple „Wo&nbsp;ist?“ oder Google Find Hub.</p>
     </div>
 
     <div class="hero-stage">
       <div class="stage">
-        <span class="tap mono" aria-hidden="true"><span id="tapText">Tipp auf Contact</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <div class="prod" id="tag">
-          <img class="on" data-c="schwarz" src="img/tag-schwarz.webp" width="1200" height="1200" alt="PhotoTag in Schwarz mit Foto auf dem E-Ink-Display">
-          <img data-c="rose" src="img/tag-rose.webp" width="1200" height="1200" alt="PhotoTag in Rosé mit Foto auf dem E-Ink-Display" loading="lazy">
-          <img data-c="orange" src="img/tag-orange.webp" width="1200" height="1200" alt="PhotoTag in Orange mit Foto auf dem E-Ink-Display" loading="lazy">
-          <div class="screen" id="screen" aria-hidden="true">
-            <header>Gefunden? Bitte melden!</header>
-            <dl>
-              <div><dt>Name:</dt><dd>Max Mustermann</dd></div>
-              <div><dt>Tel.:</dt><dd>+49 30 23125 123</dd></div>
-              <div><dt>E-Mail:</dt><dd>max@beispiel.de</dd></div>
-            </dl>
-            <footer>Danke für deine Hilfe!</footer>
-          </div>
-          <button class="hotspot" id="hotspot" type="button" aria-pressed="false" aria-label="Contact-Taste: zwischen Foto und Kontaktkarte wechseln"></button>
+        <div class="device" id="device" data-mode="photo">
+          <span class="press mono" aria-hidden="true">Drück Contact
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+          <button class="hotspot" id="hotspot" type="button" aria-label="Contact-Taste drücken: zwischen Foto und Kontaktkarte wechseln"></button>
+          <img class="photo" id="imgPhoto" src="img/var-black.webp" width="720" height="934" alt="PhotoTag in Schwarz mit Hundefoto auf dem E-Ink-Display">
+          <img class="card" id="imgCard" src="img/var-black-card.webp" width="720" height="934" alt="PhotoTag in Schwarz mit Kontaktkarte: Gefunden? Bitte melden!">
         </div>
       </div>
-      <div class="modes" role="group" aria-label="Farbe anzeigen">
-        <button type="button" data-c="schwarz" aria-pressed="true" style="--c:#2B2E34"><i></i>Schwarz</button>
-        <button type="button" data-c="rose" aria-pressed="false" style="--c:#E9B8C1"><i></i>Rosé</button>
-        <button type="button" data-c="orange" aria-pressed="false" style="--c:#D9652C"><i></i>Orange</button>
+      <div class="modes" role="group" aria-label="Display-Inhalt">
+        <button type="button" id="mPhoto" aria-pressed="true">Foto</button>
+        <button type="button" id="mCard" aria-pressed="false">Kontaktkarte</button>
       </div>
-      <p class="mode-text" id="modeText" aria-live="polite"><b>Schwarz:</b> Aluminiumgehäuse, Farb-E-Ink-Display, Schlaufe liegt bei. 15 g leicht.</p>
     </div>
 
     <div class="hero-buy" id="kaufen">
@@ -400,20 +346,22 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
         </div>
 
         <fieldset>
-          <legend>Farbe <span id="colName">· Schwarz</span></legend>
-          <div class="col">
-            <div><input type="radio" name="col" id="c1" value="schwarz" checked><label for="c1" style="--c:#2B2E34"><i></i>Schwarz</label></div>
-            <div><input type="radio" name="col" id="c2" value="rose"><label for="c2" style="--c:#E9B8C1"><i></i>Rosé</label></div>
-            <div><input type="radio" name="col" id="c3" value="orange"><label for="c3" style="--c:#D9652C"><i></i>Orange</label></div>
+          <legend>Farbe <span class="mono" id="colorName">Schwarz</span></legend>
+          <div class="swatches" id="sw0">
+            <div class="swatch"><input type="radio" name="c0" id="c0-black" value="black" checked><label for="c0-black"><i style="background:#2B2C30"></i>Schwarz</label></div>
+            <div class="swatch"><input type="radio" name="c0" id="c0-rose" value="rose"><label for="c0-rose"><i style="background:#EBC5CA"></i>Rosé</label></div>
+            <div class="swatch"><input type="radio" name="c0" id="c0-orange" value="orange"><label for="c0-orange"><i style="background:#D8672B"></i>Orange</label></div>
           </div>
+          <div class="slots" id="slots" hidden></div>
+          <p class="note" id="stockNote" hidden>Kleine Auflage: Rosé und Orange gibt es nur in begrenzter Stückzahl.</p>
         </fieldset>
 
         <fieldset>
           <legend>Menge</legend>
           <div class="qty">
             <div><input type="radio" name="qty" id="q1" value="1" checked><label for="q1"><span class="q"><b>1 Stück</b><small>29,99 € pro Stück</small></span><span class="sum">29,99 €</span></label></div>
-            <div><input type="radio" name="qty" id="q2" value="2"><label for="q2"><span class="q"><b>2 Stück</b><small>Schlüssel + Koffer</small></span><span class="tag best">Versand gratis</span><span class="sum">59,98 €</span></label></div>
-            <div><input type="radio" name="qty" id="q3" value="3"><label for="q3"><span class="q"><b>3 Stück</b><small>Für die ganze Familie</small></span><span class="tag">Versand gratis</span><span class="sum">89,97 €</span></label></div>
+            <div><input type="radio" name="qty" id="q2" value="2"><label for="q2"><span class="q"><b>2 Stück</b><small>29,99 € pro Stück</small></span><span class="tag">Versand gratis</span><span class="sum">59,98 €</span></label></div>
+            <div><input type="radio" name="qty" id="q3" value="3"><label for="q3"><span class="q"><b>3 Stück</b><small>26,66 € pro Stück</small></span><span class="tag best">10 € Rabatt + Versand gratis</span><span class="sum">79,97 €</span></label></div>
           </div>
         </fieldset>
 
@@ -423,7 +371,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <p class="fine" id="shipLine">Weiter zur sicheren Kasse von GREENMNKY. Versand mit DHL für 3,30 €, ab 50 € kostenlos.</p>
-          <div class="pay" aria-label="Zahlungsarten"><span>PayPal</span><span>Apple Pay</span><span>Google Pay</span><span>Kreditkarte</span><span>Klarna</span></div>
+          <div class="pay" aria-label="Zahlungsarten"><span>PayPal</span><span>Kreditkarte</span><span>Amazon Pay</span><span>Rechnung</span><span>SEPA-Lastschrift</span></div>
         </div>
       </form>
     </div>
@@ -431,78 +379,39 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 
   <div class="trust">
     <ul>
-      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>„Wo ist?“ &amp; Find Hub</li>
-      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.6"/></svg>Dein Foto auf dem Display</li>
-      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Bis zu 10 Monate Batterie</li>
-      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>Versand aus Deutschland</li>
+      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>iPhone &amp; Android</li>
+      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>Kein Abo für die Ortung</li>
+      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2M6 10v4M9 10v4M12 10v4"/></svg>Bis zu 10 Monate Batterie</li>
+      <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>Versand aus Deutschland</li>
     </ul>
   </div>
 </section>
 
-<section id="display" aria-labelledby="h-display">
+<section id="funktionen" aria-labelledby="h-jobs">
   <div class="wrap">
     <div class="sec-head">
-      <p class="mono">Das Display</p>
-      <h2 id="h-display">Dein Bild.<br><span class="g">Immer drauf.</span></h2>
-      <p>Ein Farb-E-Ink-Display wie bei einem E-Book-Reader: Das Bild bleibt stehen, ohne Strom zu brauchen, und ist auch in der Sonne gut zu lesen. Mit einem Druck auf die Contact-Taste wechselt es zur Kontaktkarte.</p>
+      <p class="mono">Funktionen</p>
+      <h2 id="h-jobs">Ein Anhänger, drei Aufgaben.</h2>
     </div>
-    <div class="modi">
-      <figure class="paper"><img src="img/kontakt.webp" width="1200" height="1200" alt="PhotoTag zeigt links ein Foto und rechts die Kontaktkarte, ein Druck auf die Contact-Taste wechselt dazwischen" loading="lazy"></figure>
-      <div class="mlist">
-        <article class="m" style="--c:var(--orange)">
-          <p class="mono">Seite 1</p>
-          <h3>Dein Foto</h3>
-          <p>Familie, Haustier, Lieblingsmotiv: Du lädst das Bild in der PhotoTag-App aufs Display. Es erscheint im typischen E-Ink-Look mit vier Farben.</p>
-          <ul><li>Eigenes Bild</li><li>Vier Farben</li><li>Bleibt ohne Strom</li><li>In der Sonne lesbar</li></ul>
-        </article>
-        <article class="m" style="--c:#E04A3C">
-          <p class="mono">Seite 2</p>
-          <h3>Deine Kontaktkarte</h3>
-          <p>Name, Telefonnummer und E-Mail hinterlegst du einmal in der App. Wer deine Sachen findet, drückt auf „Contact“ und weiß, wen er anrufen kann. Ohne App, ohne Handy.</p>
-          <ul><li>Name</li><li>Telefon</li><li>E-Mail</li><li>Für ehrliche Finder</li></ul>
-        </article>
-        <article class="m" style="--c:#C9CDD2">
-          <p class="mono">Gehäuse</p>
-          <h3>Aluminium, 15 Gramm</h3>
-          <p>Geschützt gegen Staub und Strahlwasser nach IP65. Regen, Spritzer und der Boden der Tasche machen ihm nichts aus. Die Knopfzelle tauschst du selbst.</p>
-          <ul><li>IP65</li><li>34,4 × 45,7 × 8,2 mm</li><li>CR2032</li><li>Schlaufe dabei</li></ul>
-        </article>
-        <p class="switch"><b>1× Contact drücken:</b> Foto ↔ Kontaktkarte</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="finden" aria-labelledby="h-finden" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="mono">Wiederfinden</p>
-      <h2 id="h-finden">Weg?<br><span class="g">Findest du.</span></h2>
-      <p>PhotoTag funkt per Bluetooth. Ist er außer Reichweite, melden iPhones oder Android-Handys in seiner Nähe den Standort anonym an dich, über das Netzwerk, in dem du ihn eingerichtet hast.</p>
-    </div>
-    <div class="ctrl">
-      <div>
-        <div class="tabs" role="tablist" aria-label="System auswählen">
-          <button role="tab" id="t-ios" aria-selected="true" aria-controls="p-ios">iPhone · „Wo ist?“</button>
-          <button role="tab" id="t-android" aria-selected="false" aria-controls="p-android" tabindex="-1">Android · Find Hub</button>
-        </div>
-        <div class="panel" id="p-ios" role="tabpanel" aria-labelledby="t-ios">
-          <div class="row"><span class="ic" aria-hidden="true">01</span><div><b>In „Wo ist?“ hinzufügen</b><span>App öffnen, „Objekte“, PhotoTag hinzufügen. Ab iOS 14, keine extra App nötig.</span></div></div>
-          <div class="row"><span class="ic" aria-hidden="true">02</span><div><b>Auf der Karte sehen</b><span>Der letzte bekannte Standort erscheint in „Wo ist?“, auch wenn du selbst längst woanders bist.</span></div></div>
-          <div class="row"><span class="ic" aria-hidden="true">03</span><div><b>Ton abspielen</b><span>Bis zu 90 dB laut. Der Schlüssel im Sofa meldet sich von allein.</span></div></div>
-          <div class="row"><span class="ic" aria-hidden="true">04</span><div><b>Als verloren markieren</b><span>Du bekommst eine Mitteilung, sobald ein Gerät aus dem Apple-Netzwerk deinen PhotoTag sieht.</span></div></div>
-        </div>
-        <div class="panel" id="p-android" role="tabpanel" aria-labelledby="t-android" hidden>
-          <div class="row"><span class="ic" aria-hidden="true">01</span><div><b>In Find Hub hinzufügen</b><span>Google Find Hub öffnen, PhotoTag in der Nähe koppeln. Ab Android 11.</span></div></div>
-          <div class="row"><span class="ic" aria-hidden="true">02</span><div><b>Auf der Karte sehen</b><span>Android-Geräte in der Nähe melden den Standort verschlüsselt ans Find-Hub-Netzwerk.</span></div></div>
-          <div class="row"><span class="ic" aria-hidden="true">03</span><div><b>Ton abspielen</b><span>Bis zu 90 dB laut. Rucksack im Klassenzimmer, Schlüssel in der Jacke: hörbar.</span></div></div>
-          <div class="row"><span class="ic" aria-hidden="true">04</span><div><b>Als verloren markieren</b><span>Find Hub benachrichtigt dich, sobald der PhotoTag wieder gesehen wird.</span></div></div>
-        </div>
-        <div class="phones"><b>Ein Tracker, ein Netzwerk:</b> Beim Einrichten entscheidest du dich für Apple oder Google. Für einen Wechsel setzt du den PhotoTag zurück und richtest ihn neu ein.</div>
-      </div>
-      <div class="ctrl-vis paper">
-        <img src="img/funktionen.webp" width="1200" height="1200" alt="Übersicht der PhotoTag-Funktionen: iPhone und Android, eigenes Foto, Kontaktkarte, Signalton 90 dB, bis zu 10 Monate Batterie, IP65" loading="lazy">
-      </div>
+    <div class="jobs">
+      <article class="job">
+        <div class="vis"><img src="img/foto-eink.webp" width="600" height="600" alt="Hundefoto auf dem E-Ink-Display" loading="lazy"></div>
+        <span class="num">01 · Erkennen</span>
+        <h3>Sofort erkennen</h3>
+        <p>Dein Foto steht groß auf dem E-Ink-Display. Es bleibt sichtbar, ohne dauernd Strom zu ziehen, und ist auch in der Sonne gut lesbar. Am Gepäckband greifst du nicht mehr zum falschen Koffer.</p>
+      </article>
+      <article class="job">
+        <div class="vis ring" aria-hidden="true"><i class="r r3"></i><i class="r r2"></i><i class="r r1"></i><span class="db">90 dB<small>Signalton</small></span></div>
+        <span class="num">02 · Finden</span>
+        <h3>Wiederfinden</h3>
+        <p>PhotoTag läuft mit Apple „Wo ist?“ ab iOS 14 oder mit Google Find Hub ab Android 11. In der Nähe klingelt er mit bis zu 90 dB. Ist er weiter weg, melden Geräte in der Nähe seinen Standort über das Netzwerk.</p>
+      </article>
+      <article class="job">
+        <div class="vis cardvis"><img src="img/kontaktkarte.webp" width="480" height="480" alt="Kontaktkarte auf dem Display: Gefunden? Bitte melden! mit Name, Telefon und E-Mail" loading="lazy"></div>
+        <span class="num">03 · Zurückbekommen</span>
+        <h3>Zurückbekommen</h3>
+        <p>Ein Druck auf Contact, und das Display zeigt deinen Namen, deine Nummer und deine E-Mail. So weiß jeder ehrliche Finder, wem er Bescheid geben kann.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -511,105 +420,114 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   <div class="wrap">
     <div class="sec-head">
       <p class="mono">Anwendung</p>
-      <h2 id="h-uses">Dran.<br><span class="g">Und erkannt.</span></h2>
-      <p>Mit der Schlaufe hängt PhotoTag an allem, was dir wichtig ist. Das Foto macht deine Sachen auf einen Blick zu deinen Sachen.</p>
+      <h2 id="h-uses">Für alles, was du nicht verlieren willst.</h2>
     </div>
     <div class="uses">
-      <figure class="use"><img src="img/koffer.webp" width="1200" height="1200" alt="PhotoTag mit Hundefoto am Koffergriff auf dem Gepäckband" loading="lazy"><figcaption><b>Koffer</b><span>Vierzig schwarze Koffer auf dem Band. Deiner hat deinen Hund drauf. Und steht in „Wo ist?“ auf der Karte.</span></figcaption></figure>
-      <figure class="use"><img src="img/schluessel.webp" width="1200" height="1200" alt="PhotoTag am Schlüsselbund beim Aufschließen der Haustür" loading="lazy"><figcaption><b>Schlüssel</b><span>Am Bund, wo er hingehört. Wenn nicht: Ton abspielen, 90 dB, gefunden.</span></figcaption></figure>
-      <figure class="use"><img src="img/rucksack.webp" width="1200" height="1200" alt="PhotoTag mit Kontaktkarte am Rucksack auf einer Parkbank" loading="lazy"><figcaption><b>Rucksack</b><span>Auf der Parkbank vergessen? Der Finder drückt „Contact“ und sieht, wen er anrufen kann.</span></figcaption></figure>
-      <figure class="use"><img src="img/geschenk.webp" width="1200" height="1200" alt="PhotoTag mit Paarfoto in einer Geschenkbox" loading="lazy"><figcaption><b>Geschenk</b><span>Mit eurem Foto auf dem Display. Persönlicher wird es unter 30 € nicht.</span></figcaption></figure>
+      <figure class="use"><img src="img/koffer.webp" width="1400" height="1400" alt="PhotoTag mit Hundefoto am Koffergriff auf dem Gepäckband" loading="lazy"><figcaption><b>Koffer</b><span>Dein Foto fällt am Gepäckband sofort auf.</span></figcaption></figure>
+      <figure class="use"><img src="img/schluessel.webp" width="1400" height="1400" alt="Hand mit Schlüsselbund und PhotoTag an der Haustür" loading="lazy"><figcaption><b>Schlüssel</b><span>Ton auslösen, statt Sofakissen umzudrehen.</span></figcaption></figure>
+      <figure class="use"><img src="img/rucksack.webp" width="1200" height="1200" alt="PhotoTag mit Kontaktkarte am Rucksack auf einer Parkbank" loading="lazy"><figcaption><b>Rucksack</b><span>Liegen gelassen? Die Kontaktkarte sagt, wem er gehört.</span></figcaption></figure>
+      <figure class="use"><img src="img/geschenk.webp" width="1400" height="1400" alt="PhotoTag mit Paarfoto in einer Geschenkbox" loading="lazy"><figcaption><b>Geschenk</b><span>Mit eurem Foto, für unter 30 €.</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-<section id="farben-sec" aria-labelledby="h-farben" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="mono">Farben</p>
-      <h2 id="h-farben">Drei Farben.<br><span class="g">Ein Foto.</span></h2>
-      <p>Das Aluminiumgehäuse gibt es in Schwarz, Rosé und Orange. Das Bild auf dem Display bestimmst du.</p>
+<section aria-labelledby="h-how" style="padding-top:0">
+  <div class="wrap howto">
+    <div>
+      <div class="sec-head" style="margin-bottom:26px">
+        <p class="mono">Einrichtung</p>
+        <h2 id="h-how">So startest du.</h2>
+      </div>
+      <ol class="steps">
+        <li><div><b>Koppeln</b><span>Füge PhotoTag in „Wo ist?“ auf dem iPhone oder in Google Find Hub auf Android hinzu.</span></div></li>
+        <li><div><b>Bild aufspielen</b><span>Wähl in der PhotoTag-App dein Foto und trag deine Kontaktdaten für die Karte ein.</span></div></li>
+        <li><div><b>Anhängen</b><span>Mit der Schlaufe an Schlüsselbund, Koffergriff oder Rucksack. Fertig.</span></div></li>
+      </ol>
     </div>
-    <div class="farben">
-      <figure class="paper" style="margin:0"><img src="img/farben.webp" width="1200" height="1200" alt="PhotoTag in Schwarz, Rosé und Orange nebeneinander" loading="lazy"></figure>
-      <div class="pick" role="group" aria-label="Farbe auswählen">
-        <button type="button" data-pick="schwarz" style="--c:#2B2E34"><i aria-hidden="true"></i><span><b>Schwarz</b><small>Klassisch, fällt an Koffer und Tasche nicht auf.</small></span><span class="mono">Wählen</span></button>
-        <button type="button" data-pick="rose" style="--c:#E9B8C1"><i aria-hidden="true"></i><span><b>Rosé</b><small>Hell und freundlich, schön am Schlüsselbund.</small></span><span class="mono">Wählen</span></button>
-        <button type="button" data-pick="orange" style="--c:#D9652C"><i aria-hidden="true"></i><span><b>Orange</b><small>Sichtbar auf den ersten Blick, auch am Gepäckband.</small></span><span class="mono">Wählen</span></button>
+    <img class="cord" src="img/tag-cord-cat.webp" width="416" height="1500" alt="PhotoTag mit Schlaufe und Katzenfoto auf dem Display" loading="lazy">
+  </div>
+</section>
+
+<section aria-labelledby="h-eink" style="padding-top:0">
+  <div class="wrap eink">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="mono">E-Ink, ehrlich erklärt</p>
+        <h2 id="h-eink">So sieht dein Foto auf dem Display aus.</h2>
+        <p>Grafiken, Zeichnungen und deine Kontaktkarte zeigt das Display gestochen scharf. Fotos sehen minimal gedeckter aus: Das Display mischt seine Farben aus feinen Punkten, Grün- und Blautöne werden dabei zu warmen Grautönen. Das braucht nur beim Bildwechsel Strom und bleibt in der Sonne lesbar. Kontrastreiche Motive mit klaren Gesichtern wirken am besten.</p>
+      </div>
+      <div class="inks" aria-label="Die vier Display-Farben">
+        <span><i style="background:#1C1C1E"></i>Schwarz</span><span><i style="background:#E8E6DC"></i>Weiß</span><span><i style="background:#B22A24"></i>Rot</span><span><i style="background:#DEBA30"></i>Gelb</span>
       </div>
     </div>
+    <div class="compare">
+      <figure><img src="img/foto-original.webp" width="600" height="600" alt="Original-Foto eines Golden Retrievers" loading="lazy"><figcaption>Dein Foto</figcaption></figure>
+      <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F0C233" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <figure><img src="img/foto-eink.webp" width="600" height="600" alt="Dasselbe Foto auf dem PhotoTag in vier Farben gerastert" loading="lazy"><figcaption>Auf dem PhotoTag</figcaption></figure>
+    </div>
   </div>
 </section>
 
-<section id="vergleich" aria-labelledby="h-vs" style="padding-top:0">
+<section aria-labelledby="h-vs" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <p class="mono">Der Unterschied</p>
-      <h2 id="h-vs">Tracker gibt es viele.<br><span class="g">Mit Gesicht nur einen.</span></h2>
+      <p class="mono">Vergleich</p>
+      <h2 id="h-vs">Was ein typischer Tracker nicht kann.</h2>
     </div>
     <div class="table-box">
       <table>
-        <thead><tr><th scope="col">Im Alltag</th><th scope="col" class="us">PhotoTag</th><th scope="col">Tracker ohne Display</th></tr></thead>
+        <thead><tr><th scope="col"><span class="sr">Funktion</span></th><th scope="col" class="us">PhotoTag</th><th scope="col">Typischer Tracker</th></tr></thead>
         <tbody>
-          <tr><td>Eigene Sachen erkennen</td><td class="us" data-l="PhotoTag">Dein Foto auf dem Display, aus zwei Metern zu sehen</td><td class="no" data-l="Tracker ohne Display">Alle sehen gleich aus</td></tr>
-          <tr><td>Ehrlicher Finder</td><td class="us" data-l="PhotoTag">Drückt „Contact“ und sieht Name, Telefon, E-Mail</td><td class="no" data-l="Tracker ohne Display">Braucht ein Handy mit NFC oder eine App</td></tr>
-          <tr><td>Wiederfinden</td><td class="us" data-l="PhotoTag">Apple „Wo ist?“ oder Google Find Hub, bis 90 dB Ton</td><td class="no" data-l="Tracker ohne Display">Je nach Modell nur ein System</td></tr>
-          <tr><td>Befestigen</td><td class="us" data-l="PhotoTag">Schlaufe liegt bei</td><td class="no" data-l="Tracker ohne Display">Halter oder Anhänger oft extra</td></tr>
-          <tr><td>Batterie</td><td class="us" data-l="PhotoTag">CR2032, bis zu 10 Monate, selbst tauschbar</td><td class="no" data-l="Tracker ohne Display">Unterschiedlich, teils fest verbaut</td></tr>
+          <tr><td>Eigenes Foto auf dem Gerät</td><td class="us"><span class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Ja</span></td><td class="no">Nein</td></tr>
+          <tr><td>Kontaktdaten für Finder sichtbar</td><td class="us"><span class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Ja</span></td><td class="no">Nein</td></tr>
+          <tr><td>Läuft mit iPhone oder Android</td><td class="us"><span class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Beides</span></td><td class="no">Oft nur eins</td></tr>
+          <tr><td>Signalton zum Wiederfinden</td><td class="us"><span class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Bis 90 dB</span></td><td>Ja</td></tr>
+          <tr><td>Knopfzelle selbst tauschbar</td><td class="us"><span class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>CR2032</span></td><td class="no">Je nach Modell</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<section aria-labelledby="h-size">
+<section class="gift" aria-labelledby="h-gift">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="mono">Größe &amp; Lieferumfang</p>
-      <h2 id="h-size">Klein.<br><span class="g">Immer dran.</span></h2>
+    <div>
+      <p class="mono">Geschenkidee</p>
+      <h2 id="h-gift">Das persönlichste Geschenk unter 30&nbsp;€.</h2>
+      <p>Ein Foto von euch, vom Hund oder vom letzten Urlaub. Jeden Tag am Schlüssel dabei und nützlich, wenn mal etwas fehlt.</p>
+      <div class="tip"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F0C233" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H8a2.5 2.5 0 1 1 0-5c3 0 4 5 4 5zM12 7h4a2.5 2.5 0 1 0 0-5c-3 0-4 5-4 5z"/></svg><span><b>Tipp:</b> Ab 2 Stück ist der Versand kostenlos, ab 3 Stück sparst du zusätzlich 10 €. Einen für dich, zwei zum Verschenken.</span></div>
+      <button class="btn light" type="button" id="pick2">3er-Set auswählen
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
     </div>
-    <div class="sizes">
-      <div class="sz">
-        <figure class="paper" style="margin:0"><img src="img/masse.webp" width="1200" height="1200" alt="PhotoTag Maße 34,4 × 45,7 × 8,2 Millimeter, 15 Gramm, mit Schlaufe" loading="lazy"></figure>
-        <p>34,4 × 45,7 × 8,2 mm bei 15 g: etwa so groß wie ein kleiner Schlüsselanhänger. Die Schlaufe passt durch Schlüsselring, Reißverschluss-Zipper und Koffergriff.</p>
-      </div>
-      <div class="inbox">
-        <h3>Im Paket</h3>
-        <ul>
-          <li><b>1×</b>PhotoTag in deiner Farbe</li>
-          <li><b>1×</b>Schlaufe zum Befestigen</li>
-          <li><b>+</b>Kurzanleitung zum Einrichten</li>
-        </ul>
-        <p class="fine">Zum Einrichten brauchst du ein iPhone ab iOS 14 oder ein Android-Handy ab Android 11. Foto und Kontaktkarte lädst du über die PhotoTag-App aufs Display.</p>
-      </div>
-    </div>
+    <img src="img/geschenk.webp" width="1400" height="1400" alt="PhotoTag mit Paarfoto zwischen Tannenzweigen in einer Geschenkbox" loading="lazy">
   </div>
 </section>
 
-<section id="technik" aria-labelledby="h-specs" style="padding-top:0">
+<section id="technik" aria-labelledby="h-specs">
   <div class="wrap">
     <div class="sec-head">
       <p class="mono">Technik</p>
-      <h2 id="h-specs">Alle Daten.</h2>
+      <h2 id="h-specs">Alle Daten auf einen Blick.</h2>
     </div>
     <div class="specs">
       <dl class="spec-list">
-        <div><dt>Display</dt><dd>Farb-E-Ink, vier Farben, Bild bleibt ohne Strom erhalten</dd></div>
-        <div><dt>Ortung</dt><dd>Apple „Wo ist?“ (ab iOS 14) oder Google Find Hub (ab Android 11)</dd></div>
-        <div><dt>Verbindung</dt><dd>Bluetooth</dd></div>
-        <div><dt>Signalton</dt><dd>Bis zu 90 dB</dd></div>
-        <div><dt>Taste</dt><dd>„Contact“: wechselt zwischen Foto und Kontaktkarte</dd></div>
-        <div><dt>Batterie</dt><dd>Knopfzelle CR2032, laut Hersteller bis zu 10 Monate, selbst tauschbar</dd></div>
-        <div><dt>Gehäuse</dt><dd>Aluminium, IP65 (staubdicht, geschützt gegen Strahlwasser)</dd></div>
         <div><dt>Maße</dt><dd>34,4 × 45,7 × 8,2 mm</dd></div>
         <div><dt>Gewicht</dt><dd>15 g</dd></div>
+        <div><dt>Display</dt><dd>Farb-E-Ink, 200 × 200 Pixel, 4 Farben</dd></div>
+        <div><dt>Batterie</dt><dd>Knopfzelle CR2032, bis zu 10 Monate laut Hersteller, selbst tauschbar</dd></div>
+        <div><dt>Ortung</dt><dd>Apple „Wo ist?“ ab iOS 14 oder Google Find Hub ab Android 11</dd></div>
+        <div><dt>Verbindung</dt><dd>Bluetooth 5.2</dd></div>
+        <div><dt>Signalton</dt><dd>bis zu 90 dB</dd></div>
+        <div><dt>Schutz</dt><dd>IP65, gegen Staub und Strahlwasser</dd></div>
+        <div><dt>Gehäuse</dt><dd>Aluminium</dd></div>
         <div><dt>Farben</dt><dd>Schwarz, Rosé, Orange</dd></div>
       </dl>
       <div class="box">
-        <h3>PhotoTag-App</h3>
-        <ul><li>Foto auswählen und aufs Display laden</li><li>Kontaktkarte mit Name, Telefon und E-Mail anlegen</li><li>Für iPhone und Android</li></ul>
+        <h3>Im Karton</h3>
+        <ul><li>PhotoTag</li><li>Schlaufe zum Befestigen an Schlüsselbund, Tasche oder Rucksack</li></ul>
         <h3 style="margin-top:12px">Du brauchst</h3>
-        <ul><li>iPhone ab iOS 14 oder Android-Handy ab Android 11 mit Bluetooth</li><li>Die „Wo ist?“-App (iPhone) bzw. Google Find Hub (Android) fürs Orten</li></ul>
+        <ul><li>iPhone ab iOS 14 oder Android-Smartphone ab Android 11</li><li>Die PhotoTag-App für Foto und Kontaktkarte</li></ul>
       </div>
     </div>
   </div>
@@ -622,23 +540,23 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
       <h2 id="h-faq">Häufige Fragen.</h2>
     </div>
     <div class="faq">
-      <details><summary>Funktioniert PhotoTag mit iPhone und Android?</summary><p>Ja. Mit dem iPhone nutzt du Apple „Wo ist?“ (ab iOS 14), mit Android Google Find Hub (ab Android 11). Beim Einrichten verbindest du den PhotoTag mit einem der beiden Netzwerke. Möchtest du später wechseln, setzt du ihn zurück und richtest ihn im anderen System neu ein.</p></details>
-      <details><summary>Wie kommt mein Foto auf das Display?</summary><p>Über die PhotoTag-App: Bild auswählen, Ausschnitt festlegen, übertragen. Das Display zeigt es im E-Ink-Look mit vier Farben, ähnlich wie ein gedrucktes Bild. Es bleibt stehen, bis du es änderst, auch ohne Batterie.</p></details>
-      <details><summary>Was sieht jemand, der meine Sachen findet?</summary><p>Ein Druck auf die Contact-Taste zeigt deine Kontaktkarte mit Name, Telefonnummer und E-Mail. Welche Angaben darauf stehen, bestimmst du in der App. Noch ein Druck, und das Foto ist wieder da.</p></details>
-      <details><summary>Ist PhotoTag ein AirTag?</summary><p>Nein. PhotoTag ist kein Apple-Produkt, nutzt aber wie ein AirTag das „Wo ist?“-Netzwerk von Apple, oder alternativ Google Find Hub. Dazu kommt das Display mit Foto und Kontaktkarte, das ein AirTag nicht hat.</p></details>
-      <details><summary>Wie laut ist der Ton?</summary><p>Bis zu 90 dB, ausgelöst über „Wo ist?“ oder Find Hub. Das reicht, um den Schlüssel in der Jackentasche oder den Rucksack im Nebenzimmer zu hören.</p></details>
-      <details><summary>Wie lange hält die Batterie?</summary><p>Laut Hersteller bis zu 10 Monate. Das Display braucht nur beim Bildwechsel Strom. Die Knopfzelle CR2032 gibt es überall, du tauschst sie selbst.</p></details>
-      <details><summary>Ist PhotoTag wasserdicht?</summary><p>Er ist nach IP65 gegen Staub und Strahlwasser geschützt. Regen und Spritzwasser sind kein Problem, untertauchen oder schwimmen solltest du damit nicht.</p></details>
-      <details><summary>Wie schnell kommt meine Bestellung und was kostet der Versand?</summary><p>Wir versenden mit DHL aus Deutschland. Unter 50 € kostet der Versand 3,30 €, ab 50 € ist er kostenlos, also schon ab 2 Stück. Du hast 14 Tage Widerrufsrecht.</p></details>
+      <details><summary>Brauche ich ein Abo?</summary><p>Für die Ortung nicht. Sie läuft über die kostenlosen Apps „Wo ist?“ von Apple oder Find Hub von Google. Foto und Kontaktkarte spielst du mit der PhotoTag-App auf.</p></details>
+      <details><summary>Kann ich ihn mit iPhone und Android gleichzeitig nutzen?</summary><p>Du verbindest PhotoTag entweder mit „Wo ist?“ oder mit Google Find Hub. Zum Wechseln setzt du ihn über die Contact-Taste zurück und koppelst ihn neu.</p></details>
+      <details><summary>Wie weit reicht die Ortung?</summary><p>In der Nähe verbindet er sich per Bluetooth 5.2 und spielt einen Ton ab. Ist er weiter weg, melden iPhones beziehungsweise Android-Geräte in der Nähe anonym seinen Standort über das jeweilige Netzwerk.</p></details>
+      <details><summary>Kann ich das Foto später ändern?</summary><p>Ja, so oft du willst, über die PhotoTag-App. Das Display braucht nur beim Bildwechsel Strom.</p></details>
+      <details><summary>Wie sieht das Foto auf dem Display aus?</summary><p>Grafiken und Zeichnungen sehen sehr scharf aus. Fotos sehen minimal gedeckter aus, weil das Display seine Farben aus feinen Punkten in Schwarz, Weiß, Rot und Gelb mischt. Grün- und Blautöne werden dabei zu warmen Grautönen. Kontrastreiche Fotos wirken am besten.</p></details>
+      <details><summary>Wie lange hält die Batterie?</summary><p>Laut Hersteller bis zu 10 Monate. Die Knopfzelle CR2032 bekommst du in jedem Supermarkt und tauschst sie selbst.</p></details>
+      <details><summary>Ist PhotoTag wasserdicht?</summary><p>Er ist nach IP65 gegen Staub und Strahlwasser geschützt, Regen macht ihm also nichts. Untertauchen solltest du ihn nicht.</p></details>
+      <details><summary>Wie schnell kommt meine Bestellung und was kostet der Versand?</summary><p>Wir versenden mit DHL aus Deutschland. Unter 50 € kostet der Versand 3,30 €, ab 50 € ist er kostenlos, also schon ab 2 Stück. Beim 3er-Set ziehen wir zusätzlich 10 € ab, der Rabatt wird an der Kasse automatisch eingelöst. Du hast 14 Tage Widerrufsrecht.</p></details>
     </div>
   </div>
 </section>
 
 <section class="final" aria-labelledby="h-final">
   <div class="wrap">
-    <h2 id="h-final">Dein Foto.<br><span class="g">Dein Tracker.</span></h2>
-    <p>29,99 € pro Stück, ab 2 Stück ohne Versandkosten. In Schwarz, Rosé und Orange.</p>
-    <a class="btn" href="#kaufen" id="finalBtn">Jetzt bestellen
+    <h2 id="h-final">Häng dein Foto <span class="mark">dran.</span></h2>
+    <p>Schwarz, Rosé oder Orange. 29,99 € pro Stück, ab 2 Stück ohne Versandkosten, im 3er-Set 10 € günstiger.</p>
+    <a class="btn" href="#kaufen" id="finalBtn">Farbe und Menge wählen
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
     <p class="fine">Alle Preise inkl. MwSt. Bezahlung über die Kasse von GREENMNKY.</p>
@@ -663,28 +581,30 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
         <li><a href="https://greenmnky.de/policies/shipping-policy">Versand und Zahlung</a></li>
       </ul>
     </div>
-    <div class="legal" id="produktsicherheit">
-      <p><strong>Hinweise zur Produktsicherheit.</strong> Verantwortlich für dieses Produkt ist der in der EU ansässige Wirtschaftsakteur: GREENMNKY GmbH, Lindigstraße 1, 63801 Kleinostheim, Deutschland, <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>. Du findest den für das Produkt verantwortlichen Wirtschaftsakteur auch auf dem Produkt bzw. der Verpackung oder in einer dem Produkt beigefügten Unterlage.</p>
-      <p>Hinweis: PhotoTag wird mit einer Lithium-Knopfzelle (CR2032) betrieben. Knopfzellen von Kindern fernhalten, bei Verschlucken sofort ärztliche Hilfe holen. Batterien nicht ins Feuer werfen und nicht über den Hausmüll entsorgen. Altgeräte und Batterien gehören zu einer Sammelstelle.</p>
-      <p>Apple, iPhone, iOS, AirTag und „Wo ist?“ sind Marken der Apple Inc. Android, Google und Google Find Hub sind Marken der Google LLC. Die Nennung dient nur dem Hinweis auf die Kompatibilität. Beispielbilder auf dem Display, Name und Kontaktdaten in der Darstellung sind Platzhalter.</p>
+    <div>
+      <h4>Produktsicherheit</h4>
+      <p>Hersteller: Shenzhen Tengruifeng IoT Technology Co., Ltd., 3A05 Zhongke Building, Gaoxin South 1st Road, Nanshan, Shenzhen, China.<br>Verantwortlich in der EU: GREENMNKY GmbH, Anschrift oben.</p>
+    </div>
+    <div class="legal">
+      <p>Warnhinweis: PhotoTag wird mit einer Knopfzelle betrieben. Knopfzellen außerhalb der Reichweite von Kindern aufbewahren. Verschlucken kann zu schweren inneren Verletzungen führen.</p>
+      <p>Apple und „Wo ist?“ sind Marken der Apple Inc. Google und Find Hub sind Marken der Google LLC. PhotoTag ist eine Marke ihres Inhabers.</p>
     </div>
   </div>
 </footer>
 
 <div class="sticky" id="sticky" aria-hidden="true">
-  <img id="stickyImg" src="img/tag-schwarz.webp" width="1200" height="1200" alt="">
+  <img id="stickyImg" src="img/var-black.webp" width="720" height="934" alt="">
   <div><b>PhotoTag</b><span id="stickySub">Schwarz · 29,99 €</span></div>
   <a class="btn" id="stickyBuy" href="https://greenmnky.de/cart/66071155900684:1?utm_source=eazygadgetz&amp;utm_medium=landingpage&amp;utm_campaign=phototag" tabindex="-1">Bestellen</a>
 </div>
 
 <script>
 (function(){
-  var PRICE=29.99, FREE=50;
-  var VARIANTS={
-    schwarz:{id:"66071155900684",name:"Schwarz",img:"img/tag-schwarz.webp",glow:"#C9CDD2",t:"<b>Schwarz:</b> Aluminiumgehäuse, Farb-E-Ink-Display, Schlaufe liegt bei. 15 g leicht."},
-    rose:{id:"66071155933452",name:"Rosé",img:"img/tag-rose.webp",glow:"#F0B9C2",t:"<b>Rosé:</b> dasselbe Gehäuse in hellem Roségold. Das Foto auf dem Display bleibt dein eigenes."},
-    orange:{id:"66071155966220",name:"Orange",img:"img/tag-orange.webp",glow:"#FF7A1A",t:"<b>Orange:</b> die Farbe, die man am Gepäckband zuerst sieht. Gleiche Technik, gleicher Preis."}
-  };
+  var VARIANT={black:"66071155900684",rose:"66071155933452",orange:"66071155966220"};
+  var NAME={black:"Schwarz",rose:"Rosé",orange:"Orange"};
+  var SWATCH={black:"#2B2C30",rose:"#EBC5CA",orange:"#D8672B"};
+  var ALT_PHOTO={black:"Hundefoto",rose:"Paarfoto",orange:"Katzenfoto"};
+  var PRICE=29.99, SHIP=3.30, FREE=50, SET_QTY=3, SET_OFF=10, SET_CODE="3ERSET10";
   var UTM=(function(){
     /* UTMs aus dem eingehenden Link (Insta/TikTok/Ads) an den Checkout durchreichen, sonst Default */
     try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
@@ -692,66 +612,91 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
       if(has)return o.toString();}catch(e){}
     return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=phototag";
   })();
-  var state={qty:1,col:"schwarz",contact:false};
+  var state={qty:1,colors:["black","black","black"],mode:"photo"};
+
   var $=function(id){return document.getElementById(id)};
-  var eur=function(n){return n.toFixed(2).replace(".",",")+" €"};
+  var IMG=function(n){return (window.__IMG&&window.__IMG[n])||("img/"+n)};
+  var eur=function(n){return n.toFixed(2).replace(".",",")+" €"};
 
-  function checkoutUrl(){return "https://greenmnky.de/cart/"+VARIANTS[state.col].id+":"+state.qty+"?"+UTM}
-
-  function setColor(c,fromForm){
-    state.col=c; var v=VARIANTS[c];
-    document.documentElement.style.setProperty("--led",v.glow);
-    document.querySelectorAll("#tag img").forEach(function(im){im.classList.toggle("on",im.getAttribute("data-c")===c)});
-    document.querySelectorAll(".modes button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-c")===c))});
-    $("modeText").innerHTML=v.t;
-    $("colName").textContent="· "+v.name;
-    $("stickyImg").src=v.img;
-    if(!fromForm){var r=document.querySelector('input[name="col"][value="'+c+'"]');if(r)r.checked=true;}
-    update();
+  function checkoutUrl(){
+    var counts={};
+    for(var i=0;i<state.qty;i++){var c=state.colors[i];counts[c]=(counts[c]||0)+1}
+    var parts=Object.keys(counts).map(function(c){return VARIANT[c]+":"+counts[c]});
+    var disc=state.qty>=SET_QTY?"discount="+SET_CODE+"&":"";
+    return "https://greenmnky.de/cart/"+parts.join(",")+"?"+disc+UTM;
   }
 
-  function setContact(on){
-    state.contact=on;
-    $("screen").classList.toggle("on",on);
-    $("hotspot").setAttribute("aria-pressed",String(on));
-    $("tapText").textContent=on?"Nochmal: Foto":"Tipp auf Contact";
+  function renderSlots(){
+    var box=$("slots");
+    if(state.qty<2){box.hidden=true;box.textContent="";return}
+    box.hidden=false;box.textContent="";
+    for(var i=1;i<state.qty;i++){
+      var row=document.createElement("div");row.className="slot";
+      var lab=document.createElement("span");lab.className="mono";lab.textContent="Stück "+(i+1);row.appendChild(lab);
+      ["black","rose","orange"].forEach(function(c){
+        var w=document.createElement("div");w.className="swatch";
+        var inp=document.createElement("input");inp.type="radio";inp.name="c"+i;inp.id="c"+i+"-"+c;inp.value=c;
+        if(state.colors[i]===c)inp.checked=true;
+        (function(idx){inp.addEventListener("change",function(){state.colors[idx]=this.value;update()})})(i);
+        var l=document.createElement("label");l.htmlFor=inp.id;
+        var dot=document.createElement("i");dot.style.background=SWATCH[c];l.appendChild(dot);l.appendChild(document.createTextNode(NAME[c]));
+        w.appendChild(inp);w.appendChild(l);row.appendChild(w);
+      });
+      box.appendChild(row);
+    }
+    var first=box.firstChild&&box.firstChild.querySelector("span");
+    if(first){ $("slots").setAttribute("aria-label","Farben für weitere Stück") }
+  }
+
+  function setMode(m){
+    state.mode=m;
+    $("device").setAttribute("data-mode",m);
+    $("mPhoto").setAttribute("aria-pressed",String(m==="photo"));
+    $("mCard").setAttribute("aria-pressed",String(m==="card"));
   }
 
   function update(){
-    var total=PRICE*state.qty, free=total>=FREE;
+    var c=state.colors[0], set=state.qty>=SET_QTY, total=PRICE*state.qty-(set?SET_OFF:0), free=total>=FREE;
+    $("imgPhoto").src=IMG("var-"+c+".webp");
+    $("imgCard").src=IMG("var-"+c+"-card.webp");
+    $("imgPhoto").alt="PhotoTag in "+NAME[c]+" mit "+ALT_PHOTO[c]+" auf dem E-Ink-Display";
+    $("imgCard").alt="PhotoTag in "+NAME[c]+" mit Kontaktkarte: Gefunden? Bitte melden!";
+    $("colorName").textContent=state.qty>1?"Stück 1: "+NAME[c]:NAME[c];
     $("priceMain").textContent=eur(total);
-    $("priceSub").textContent=free?"inkl. MwSt., versandkostenfrei":"inkl. MwSt., zzgl. 3,30 € Versand";
+    $("priceSub").textContent=set?"inkl. MwSt., versandkostenfrei, du sparst 10 €":(free?"inkl. MwSt., versandkostenfrei":"inkl. MwSt., zzgl. 3,30 € Versand");
     $("buyLabel").textContent="Jetzt bestellen · "+eur(total);
-    $("shipLine").textContent=free
-      ?"Weiter zur sicheren Kasse von GREENMNKY. Versand mit DHL kostenlos, du sparst 3,30 €."
-      :"Weiter zur sicheren Kasse von GREENMNKY. Versand mit DHL für 3,30 €, ab 50 € kostenlos.";
+    $("shipLine").textContent=set
+      ?"Weiter zur sicheren Kasse von GREENMNKY. Die 10 € Rabatt werden dort automatisch abgezogen, Versand mit DHL kostenlos."
+      :(free?"Weiter zur sicheren Kasse von GREENMNKY. Versand mit DHL kostenlos, du sparst 3,30 €."
+      :"Weiter zur sicheren Kasse von GREENMNKY. Versand mit DHL für 3,30 €, ab 50 € kostenlos.");
     var url=checkoutUrl(); $("buy").href=url; $("stickyBuy").href=url;
-    $("stickySub").textContent=VARIANTS[state.col].name+(state.qty>1?" · "+state.qty+" Stück":"")+" · "+eur(total);
+    $("stickyImg").src=IMG("var-"+c+".webp");
+    $("stickySub").textContent=(state.qty>1?state.qty+" Stück · ":NAME[c]+" · ")+eur(total);
+    var limited=state.colors.slice(0,state.qty).some(function(x){return x!=="black"});
+    $("stockNote").hidden=!limited;
   }
 
-  $("hotspot").addEventListener("click",function(){setContact(!state.contact)});
-  document.querySelectorAll(".modes button").forEach(function(b){b.addEventListener("click",function(){setColor(b.getAttribute("data-c"))})});
-  document.querySelectorAll('input[name="col"]').forEach(function(inp){inp.addEventListener("change",function(){setColor(this.value,true)})});
-  document.querySelectorAll('input[name="qty"]').forEach(function(inp){inp.addEventListener("change",function(){state.qty=parseInt(this.value,10);update()})});
-  document.querySelectorAll("[data-pick]").forEach(function(b){b.addEventListener("click",function(){
-    setColor(b.getAttribute("data-pick"));
-    $("kaufen").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
-    var r=document.querySelector('input[name="col"]:checked'); if(r)setTimeout(function(){r.focus({preventScroll:true})},400);
-  })});
-  $("buyForm").addEventListener("submit",function(e){e.preventDefault()});
-
-  // tabs (roving tabindex, arrow keys)
-  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
-  function selectTab(t){
-    tabs.forEach(function(x){var on=x===t;x.setAttribute("aria-selected",String(on));x.tabIndex=on?0:-1;$(x.getAttribute("aria-controls")).hidden=!on});
-  }
-  tabs.forEach(function(t,i){
-    t.addEventListener("click",function(){selectTab(t)});
-    t.addEventListener("keydown",function(e){
-      var n=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0; if(!n)return;
-      e.preventDefault();var nt=tabs[(i+n+tabs.length)%tabs.length];selectTab(nt);nt.focus();
+  document.querySelectorAll('input[name="c0"]').forEach(function(inp){
+    inp.addEventListener("change",function(){
+      var prev=state.colors[0];state.colors[0]=this.value;
+      for(var i=1;i<3;i++){ if(state.colors[i]===prev) state.colors[i]=this.value }
+      renderSlots();update();
     });
   });
+  document.querySelectorAll('input[name="qty"]').forEach(function(inp){
+    inp.addEventListener("change",function(){state.qty=parseInt(this.value,10);renderSlots();update()});
+  });
+  $("hotspot").addEventListener("click",function(){setMode(state.mode==="photo"?"card":"photo")});
+  $("mPhoto").addEventListener("click",function(){setMode("photo")});
+  $("mCard").addEventListener("click",function(){setMode("card")});
+  $("buyForm").addEventListener("submit",function(e){e.preventDefault()});
+  $("pick2").addEventListener("click",function(){
+    var q=$("q3");q.checked=true;state.qty=3;renderSlots();update();
+    $("kaufen").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+    setTimeout(function(){q.focus({preventScroll:true})},400);
+  });
+
+  ["rose","orange","black"].forEach(function(c){["",'-card'].forEach(function(s){var i=new Image();i.src=IMG("var-"+c+s+".webp")})});
 
   var sticky=$("sticky");
   if("IntersectionObserver" in window){

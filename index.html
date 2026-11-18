@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>eazygadgetz – Gadgets, die du wirklich benutzt</title>
-<meta name="description" content="eazygadgetz von GREENMNKY: ausgesuchte Gadgets wie der OnCtrl Ring II und der PhotoTag Tracker mit Foto-Display. Versand mit DHL aus Deutschland, ab 50 € versandkostenfrei.">
+<meta name="description" content="eazygadgetz: ausgesuchte Gadgets wie der OnCtrl Ring II und der PhotoTag Tracker mit Foto-Display. Selbst getestet, Versand mit DHL aus Deutschland, ab 50 € versandkostenfrei.">
 <meta property="og:title" content="eazygadgetz – Gadgets, die du wirklich benutzt">
 <meta property="og:description" content="OnCtrl Ring II und PhotoTag: kleine Helfer, die im Alltag wirklich etwas können. Versand aus Deutschland.">
 <meta property="og:type" content="website">
@@ -36,6 +36,7 @@
   --accent-ink:#06120A;
   --blue:#3D8BFF;
   --orange:#FF7A1A;
+  --yellow:#F0C233;
   --font:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --radius:22px;
@@ -95,6 +96,7 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(10,11,13,.82);backd
 .prod .vis{position:relative;aspect-ratio:4/3;background:radial-gradient(70% 70% at 60% 40%,color-mix(in srgb,var(--c) 22%,var(--bg2)),var(--bg2) 75%);display:grid;place-items:center;overflow:hidden}
 .prod .vis img{width:60%;height:auto;transition:transform .35s ease}
 .prod .vis img.lighten{mix-blend-mode:lighten;width:86%}
+.prod .vis img.tall{width:auto;height:80%}
 .prod:hover .vis img{transform:scale(1.04)}
 .prod .tagline{position:absolute;left:18px;top:16px;display:inline-flex;align-items:center;gap:8px;background:rgba(10,11,13,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--line2);padding:7px 12px;border-radius:999px;font-size:13px;color:var(--text)}
 .prod .tagline i{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
@@ -168,7 +170,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 
 <header class="site">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="eazygadgetz Startseite"><i aria-hidden="true"></i>eazygadgetz <small>by GREENMNKY</small></a>
+    <a class="logo" href="/" aria-label="eazygadgetz Startseite"><i aria-hidden="true"></i>eazygadgetz</a>
     <nav class="nav" aria-label="Produkte">
       <a href="/ring-ii/">Ring II</a>
       <a href="/phototag/">PhotoTag</a>
@@ -183,7 +185,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   <div class="wrap">
     <p class="eyebrow mono"><span>Ausgesucht</span><span>Selbst getestet</span><span>Aus Deutschland verschickt</span></p>
     <h1 id="h1">Gadgets, die du<span class="g">wirklich benutzt.</span></h1>
-    <p class="lead"><b>eazygadgetz</b> ist die Gadget-Marke von GREENMNKY aus Kleinostheim. Wir suchen kleine Helfer aus, die im Alltag etwas können, probieren sie selbst aus und schicken sie mit DHL aus Deutschland zu dir.</p>
+    <p class="lead"><b>eazygadgetz</b> sucht kleine Helfer aus, die im Alltag wirklich etwas können. Wir probieren sie selbst aus, erklären ehrlich, was sie können und was nicht, und schicken sie mit DHL aus Deutschland zu dir.</p>
   </div>
 </section>
 
@@ -207,10 +209,10 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
         </div>
       </a>
 
-      <a class="prod" href="/phototag/" style="--c:var(--orange)">
+      <a class="prod" href="/phototag/" style="--c:var(--yellow)">
         <div class="vis">
           <span class="tagline"><i aria-hidden="true"></i>Tracker mit Foto-Display</span>
-          <img src="/phototag/img/tag-schwarz.webp" width="1200" height="1200" alt="PhotoTag Tracker in Schwarz mit Foto auf dem E-Ink-Display">
+          <img class="tall" src="/phototag/img/var-black.webp" width="720" height="934" alt="PhotoTag Tracker in Schwarz mit Hundefoto auf dem E-Ink-Display">
         </div>
         <div class="body">
           <p class="mono">Schlüssel, Rucksack, Koffer</p>
@@ -232,7 +234,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
     <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>Versand mit DHL aus Deutschland</li>
     <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg>PayPal, Apple Pay, Klarna &amp; Karte</li>
     <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>14 Tage Widerrufsrecht</li>
-    <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>Sichere Kasse von GREENMNKY</li>
+    <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B9BEC6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>Sichere Kasse, kein Kundenkonto nötig</li>
   </ul>
 </div>
 
@@ -241,12 +243,12 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
     <div class="sec-head">
       <p class="mono">So läuft's</p>
       <h2 id="h-so">Aussuchen.<br>Bestellen. Fertig.</h2>
-      <p>eazygadgetz zeigt dir die Produkte, bezahlt wird in der Kasse unseres Shops greenmnky.de. Ein Konto brauchst du nicht.</p>
+      <p>Aussuchen, bezahlen, auspacken. Ein Kundenkonto brauchst du nicht.</p>
     </div>
     <div class="steps">
       <div class="step"><span class="n">01</span><b>Gadget aussuchen</b><p>Auf der Produktseite siehst du alles, was du wissen musst: Funktionen, Kompatibilität, Technik, Fragen.</p></div>
-      <div class="step"><span class="n">02</span><b>In der GREENMNKY-Kasse bezahlen</b><p>PayPal, Apple Pay, Google Pay, Klarna oder Karte. Unter 50 € kostet der Versand 3,30 €, ab 50 € nichts.</p></div>
-      <div class="step"><span class="n">03</span><b>DHL bringt's</b><p>Versand aus Kleinostheim bei Aschaffenburg. Gefällt es nicht: 14 Tage Widerrufsrecht.</p></div>
+      <div class="step"><span class="n">02</span><b>Sicher bezahlen</b><p>PayPal, Apple Pay, Google Pay, Klarna oder Karte in unserer Kasse auf greenmnky.de. Unter 50 € kostet der Versand 3,30 €, ab 50 € nichts.</p></div>
+      <div class="step"><span class="n">03</span><b>DHL bringt's</b><p>Versand aus unserem Lager in Deutschland. Gefällt es nicht: 14 Tage Widerrufsrecht.</p></div>
     </div>
   </div>
 </section>
@@ -254,14 +256,13 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 <section class="about" aria-labelledby="h-about">
   <div class="wrap">
     <div class="box">
-      <p class="mono" style="color:var(--accent)">Wer dahintersteckt</p>
-      <h2 id="h-about">GREENMNKY, Kleinostheim.</h2>
-      <p>Hinter eazygadgetz steht die <b>GREENMNKY GmbH</b>, ein Händler aus Kleinostheim bei Aschaffenburg. Wir nehmen nur Gadgets ins Programm, die wir selbst im Alltag benutzen würden, und erklären auf jeder Seite ehrlich, was ein Produkt kann und was nicht. Fragen? <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>.</p>
+      <p class="mono" style="color:var(--accent)">Warum eazygadgetz</p>
+      <h2 id="h-about">Wenige Gadgets. Dafür die richtigen.</h2>
+      <p>Kein Marktplatz mit tausend Artikeln: Wir nehmen nur ins Programm, was wir selbst im Alltag benutzen würden, lagern es in Deutschland und beantworten Fragen selbst. Schreib uns: <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>.</p>
       <div class="links">
         <a class="btn ghost small" href="/ring-ii/">OnCtrl Ring II</a>
         <a class="btn ghost small" href="/phototag/">PhotoTag</a>
-        <a class="btn ghost small" href="https://greenmnky.de" rel="noopener">greenmnky.de</a>
-      </div>
+              </div>
     </div>
   </div>
 </section>
