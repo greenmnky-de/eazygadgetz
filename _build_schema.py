@@ -12,8 +12,8 @@ SHIP={"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","v
                       "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}}}
 RET={"@type":"MerchantReturnPolicy","applicableCountry":"DE","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
      "merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnFeesCustomerResponsibility"}
-def offer(url,price):
-    return {"@type":"Offer","url":url,"price":price,"priceCurrency":"EUR","availability":"https://schema.org/InStock",
+def offer(url,price,avail="https://schema.org/InStock"):
+    return {"@type":"Offer","url":url,"price":price,"priceCurrency":"EUR","availability":avail,
             "itemCondition":"https://schema.org/NewCondition","seller":SELLER,"shippingDetails":SHIP,"hasMerchantReturnPolicy":RET}
 def crumbs(name,path):
     return {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"eazygadgetz","item":B+"/"},{"@type":"ListItem","position":2,"name":name,"item":B+path}]}
@@ -25,7 +25,7 @@ PG={"@context":"https://schema.org","@graph":[ORG,
   {"@type":"ProductGroup","@id":pt+"#product","name":"PhotoTag – Tracker mit Foto-Display für iPhone & Android","description":pt_desc,"url":pt,
    "brand":{"@type":"Brand","name":"PhotoTag"},"productGroupID":"WA.PT","variesBy":["https://schema.org/color"],
    "image":[pt+"img/var-black.webp",pt+"img/koffer.webp",pt+"img/foto-eink.webp",pt+"img/tag-cord-cat.webp"],
-   "hasVariant":[{"@type":"Product","name":f"PhotoTag {n}","description":f"PhotoTag in {n}. "+pt_desc,"sku":sku,"gtin13":ean,"color":n,"image":pt+"img/"+img,"offers":offer(pt,"29.99")} for n,sku,ean,img in VAR]},
+   "hasVariant":[{"@type":"Product","name":f"PhotoTag {n}","description":f"PhotoTag in {n}. "+pt_desc,"sku":sku,"gtin13":ean,"color":n,"image":pt+"img/"+img,"offers":offer(pt,"29.99","https://schema.org/OutOfStock")} for n,sku,ean,img in VAR]},
   crumbs("PhotoTag","/phototag/")]}
 r=B+"/ring-ii/"
 r_desc="Bluetooth-Fernbedienung als Ring für GoPro, DJI und Insta360 sowie Smartphone: Foto auslösen, Video starten, Musik steuern, Kurzvideos wischen. Drei Modi, ca. 8 h Akku, magnetisches Laden, Silikonringe in S, M und L im Lieferumfang."
