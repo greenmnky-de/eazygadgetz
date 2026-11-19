@@ -1,4 +1,4 @@
-"""Schreibt die JSON-LD-Blöcke (schema.org) in Startseite, Ring II und PhotoTag. Idempotent: ersetzt vorhandene Blöcke."""
+"""Schreibt die JSON-LD-Blöcke (schema.org) in Startseite, Ring II, PhotoTag und SmartCharge 140. Idempotent: ersetzt vorhandene Blöcke."""
 import json, pathlib, re
 B="https://eazygadgetz.de"
 ORG={"@type":"Organization","@id":B+"/#org","name":"eazygadgetz","legalName":"GREENMNKY GmbH","url":B+"/","logo":B+"/img/logo.png",
@@ -34,6 +34,21 @@ RG={"@context":"https://schema.org","@graph":[ORG,
    "brand":{"@type":"Brand","name":"OnCtrl"},"sku":"WA.BRCR200","color":"Schwarz",
    "image":[r+"img/ring-blue.webp",r+"img/og.jpg",r+"img/modi.webp"],"offers":offer(r,"29.95")},
   crumbs("OnCtrl Ring II","/ring-ii/")]}
+sc=B+"/smartcharge-140/"
+SHIP0=dict(SHIP,shippingRate={"@type":"MonetaryAmount","value":"0.00","currency":"EUR"})
+def offer_free(url,price):
+    o=offer(url,price); o["shippingDetails"]=SHIP0; return o
+sc_desc="140-W-GaN-Ladegerät mit 3× USB-C (PD 3.1, bis 140 W an C1) und 1× USB-A (30 W). Smart Display zeigt live die Gesamtleistung und die Leistung pro Anschluss, Taste wechselt die Ansicht. Klappbarer Eurostecker, 82,5 × 71,5 × 36 mm, 260 g. Lädt MacBook Pro, iPad, iPhone und Kopfhörer gleichzeitig."
+cb_desc="USB-C-auf-USB-C-Ladekabel mit 240 W (USB PD 3.1 EPR), 1,5 m, Nylongeflecht, Aluminiumstecker und Display im Stecker, das Watt, Volt und Ampere live zeigt."
+SC={"@context":"https://schema.org","@graph":[ORG,
+  {"@type":"Product","@id":sc+"#product","name":"GREENMNKY SmartCharge 140 – 140W GaN USB-C Ladegerät mit Smart Display","description":sc_desc,"url":sc,
+   "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.C140","gtin13":"4251772541970","mpn":"RCE-14005ACCCLEU","color":"Graphit",
+   "image":[sc+"img/display.webp",sc+"img/angle.webp",sc+"img/ports.webp",sc+"img/back.webp"],"offers":offer_free(sc,"59.95"),
+   "isRelatedTo":{"@id":sc+"#cable"}},
+  {"@type":"Product","@id":sc+"#cable","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":cb_desc,"url":sc+"#kaufen",
+   "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.CC240","gtin13":"4251772542038","color":"Schwarz",
+   "image":[sc+"img/cable-plugs.webp",sc+"img/cable-coil.webp"],"offers":offer(sc+"#kaufen","24.95")},
+  crumbs("SmartCharge 140","/smartcharge-140/")]}
 HG={"@context":"https://schema.org","@graph":[ORG,{"@type":"WebSite","@id":B+"/#website","url":B+"/","name":"eazygadgetz","inLanguage":"de","publisher":SELLER}]}
 
 def inject(path,data,marker):
@@ -46,3 +61,4 @@ R=pathlib.Path(__file__).parent
 inject(R/"phototag/index.html",PG,'<link rel="preload" href="fonts/archivo.woff2"')
 inject(R/"ring-ii/index.html",RG,'<link rel="preload" href="fonts/rubik.woff2"')
 inject(R/"index.html",HG,'<link rel="preload" href="/ring-ii/fonts/rubik.woff2"')
+inject(R/"smartcharge-140/index.html",SC,'<link rel="preload" href="fonts/rubik.woff2"')
