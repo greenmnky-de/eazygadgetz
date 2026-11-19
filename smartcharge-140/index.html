@@ -25,7 +25,10 @@
 {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://eazygadgetz.de/#org","name":"eazygadgetz","legalName":"GREENMNKY GmbH","url":"https://eazygadgetz.de/","logo":"https://eazygadgetz.de/img/logo.png","email":"b2csupport@greenmnky.de","telephone":"+49 6021 4376840","address":{"@type":"PostalAddress","streetAddress":"Lindigstraße 1","postalCode":"63801","addressLocality":"Kleinostheim","addressCountry":"DE"},"sameAs":["https://greenmnky.de"]},{"@type":"Product","@id":"https://eazygadgetz.de/smartcharge-140/#product","name":"GREENMNKY SmartCharge 140 – 140W GaN USB-C Ladegerät mit Smart Display","description":"140-W-GaN-Ladegerät mit 3× USB-C (PD 3.1, bis 140 W an C1) und 1× USB-A (30 W). Smart Display zeigt live die Gesamtleistung und die Leistung pro Anschluss, Taste wechselt die Ansicht. Klappbarer Eurostecker, 82,5 × 71,5 × 36 mm, 260 g. Lädt MacBook Pro, iPad, iPhone und Kopfhörer gleichzeitig.","url":"https://eazygadgetz.de/smartcharge-140/","brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.C140","gtin13":"4251772541970","mpn":"RCE-14005ACCCLEU","color":"Graphit","image":["https://eazygadgetz.de/smartcharge-140/img/hero-ring.webp","https://eazygadgetz.de/smartcharge-140/img/angle.webp","https://eazygadgetz.de/smartcharge-140/img/ports.webp","https://eazygadgetz.de/smartcharge-140/img/back.webp"],"offers":{"@type":"Offer","url":"https://eazygadgetz.de/smartcharge-140/","price":"59.95","priceCurrency":"EUR","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","seller":{"@id":"https://eazygadgetz.de/#org"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"0.00","currency":"EUR"},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"DE"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"DE","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnFeesCustomerResponsibility"}},"isRelatedTo":{"@id":"https://eazygadgetz.de/smartcharge-140/#cable"}},{"@type":"Product","@id":"https://eazygadgetz.de/smartcharge-140/#cable","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":"USB-C-auf-USB-C-Ladekabel mit 240 W (USB PD 3.1 EPR), 1,5 m, Nylongeflecht, Aluminiumstecker und Display im Stecker, das Watt, Volt und Ampere live zeigt.","url":"https://eazygadgetz.de/smartcharge-140/#kaufen","brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.CC240","gtin13":"4251772542038","color":"Schwarz","image":["https://eazygadgetz.de/smartcharge-140/img/cable-plugs.webp","https://eazygadgetz.de/smartcharge-140/img/cable-coil.webp"],"offers":{"@type":"Offer","url":"https://eazygadgetz.de/smartcharge-140/#kaufen","price":"24.95","priceCurrency":"EUR","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","seller":{"@id":"https://eazygadgetz.de/#org"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"3.30","currency":"EUR"},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"DE"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"DE","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnFeesCustomerResponsibility"}}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"eazygadgetz","item":"https://eazygadgetz.de/"},{"@type":"ListItem","position":2,"name":"SmartCharge 140","item":"https://eazygadgetz.de/smartcharge-140/"}]}]}
 </script>
 <link rel="preload" href="fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/hero-ring.webp" as="image">
+<link rel="preload" href="img/hero-ring.webp" as="image" fetchpriority="high">
+<link rel="preload" href="img/hero-hi.webp" as="image">
+<link rel="preload" href="img/hero-face.webp" as="image">
+<link rel="preload" href="img/hero-cool.webp" as="image">
 <style>
 /* Haut: hell, GREENMNKY-Grün als Akzent (Buttons, Labels), dunkles Grün für Text-Akzente. Das Smart Display ist das Herzstück: Anschlüsse belegen, sehen, was ankommt – live, auf dem Produkt. */
 :root{
@@ -109,7 +112,7 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(246,247,245,.86);ba
 
 /* stage */
 .stage-card{position:relative;background:#FFFFFF;border:1px solid var(--line);border-radius:var(--radius);padding:12px;box-shadow:0 30px 70px rgba(10,18,12,.10)}
-.stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#fff}
+.stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:#fff url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAAwADADASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAABQYEBwABAwL/xAAmEAACAgEEAQQCAwAAAAAAAAABAgADBAUGESFREiIxQQcUMlJh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALJmTJzuuSisvYwAED3IWXqNVHtBBaBNS3B6ia8c9eYJS9rLQzEkkwCOTug4GaqXjmt/vxGTCzac2kWUuGBlX7rYC2sn4hv8fXlmtQMSvgwH13VFLMQAPsxN3PrtFy/rUPywPZENa8L8qhsbHDBmH8pWuVi3YWWa7VPI+/MAjUwI5Jkqq0Fxx0IJSzidDaUX1M3pEDW7OHSog9wh+OWIzLFPiL2RkJl2eixzwPgxg2LS9GrEfKkdGBZbKCD/ALEveOClVSMi+5j20dpHzMOrMpNdyhgYFQW5NWMvC+54LvyrL27J4P0I8azsV2tNmE/RPwZM0LY9WOVtzfe/iAnaPt3N1OwehClf9jLM0HQKtJqHfqs47JheiirHQJUgVR4E6wP/2Q==") center/cover no-repeat}
 .stage::before{display:none}
 .stage::after{display:none}
 .stage img.st{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .35s ease}
@@ -331,10 +334,10 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
     <div class="hero-stage">
       <div class="stage-card">
         <div class="stage" id="stage">
-          <img class="st" data-st="hi" src="img/hero-hi.webp" width="1400" height="1400" alt="GREENMNKY SmartCharge 140: Display sagt Hi">
-          <img class="st" data-st="face" src="img/hero-face.webp" width="1400" height="1400" alt="" aria-hidden="true">
-          <img class="st on" data-st="ring" src="img/hero-ring.webp" width="1400" height="1400" alt="GREENMNKY SmartCharge 140 schräg von vorn: Smart Display zeigt 140 W und die Leistung pro Anschluss, darunter drei USB-C- und ein USB-A-Anschluss">
-          <img class="st" data-st="cool" src="img/hero-cool.webp" width="1400" height="1400" alt="" aria-hidden="true">
+          <img class="st" data-st="hi" src="img/hero-hi.webp" width="1400" height="1400" alt="" aria-hidden="true" decoding="async">
+          <img class="st" data-st="face" src="img/hero-face.webp" width="1400" height="1400" alt="" aria-hidden="true" decoding="async">
+          <img class="st on" data-st="ring" src="img/hero-ring.webp" width="1400" height="1400" fetchpriority="high" decoding="sync" alt="GREENMNKY SmartCharge 140 schräg von vorn: Smart Display zeigt 140 W und die Leistung pro Anschluss, darunter drei USB-C- und ein USB-A-Anschluss">
+          <img class="st" data-st="cool" src="img/hero-cool.webp" width="1400" height="1400" alt="" aria-hidden="true" decoding="async">
           <button class="hot" id="dispBtn" type="button" aria-label="Display-Ansicht wechseln"><i></i></button>
           <span class="hint mono" id="dispHint">Tipp auf die Taste</span>
         </div>
@@ -698,10 +701,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   var num=function(w){return w%1?w.toFixed(1).replace(".",","):String(w)};
 
   /* --- Hero-Display: Bildzustände, Taste wechselt --- */
-  var ST=["ring","cool","face"], cur="ring", seqTimer=[];
-  function show(st){cur=st;document.querySelectorAll(".stage img.st").forEach(function(i){i.classList.toggle("on",i.getAttribute("data-st")===st)})}
+  var ST=["ring","cool","face"], cur="ring", seqTimer=[], imgs={};
+  document.querySelectorAll(".stage img.st").forEach(function(i){imgs[i.getAttribute("data-st")]=i});
+  function ready(img){ if(img.complete&&img.naturalWidth)return Promise.resolve(); return (img.decode?img.decode():Promise.resolve()).catch(function(){}); }
+  function show(st){ var img=imgs[st]; if(!img)return; ready(img).then(function(){ cur=st; for(var k in imgs)imgs[k].classList.toggle("on",k===st); }); }
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(!reduce){ show("hi"); seqTimer.push(setTimeout(function(){show("face")},1500)); seqTimer.push(setTimeout(function(){show("ring")},3300)); }
+  if(!reduce){ /* Einschaltsequenz erst, wenn Hi und Gesicht geladen sind – bis dahin bleibt der Ring stehen */
+    Promise.all([ready(imgs.hi),ready(imgs.face)]).then(function(){ show("hi"); seqTimer.push(setTimeout(function(){show("face")},1500)); seqTimer.push(setTimeout(function(){show("ring")},3300)); });
+  }
   $("dispBtn").addEventListener("click",function(){
     seqTimer.forEach(clearTimeout); $("dispHint").classList.add("off");
     var i=ST.indexOf(cur); show(ST[(i+1)%ST.length]);
