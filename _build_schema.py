@@ -43,7 +43,7 @@ cb_desc="USB-C-auf-USB-C-Ladekabel mit 240 W (USB PD 3.1 EPR), 1,5 m, Nylongefle
 SC={"@context":"https://schema.org","@graph":[ORG,
   {"@type":"Product","@id":sc+"#product","name":"GREENMNKY SmartCharge 140 – 140W GaN USB-C Ladegerät mit Smart Display","description":sc_desc,"url":sc,
    "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.C140","gtin13":"4251772541970","mpn":"RCE-14005ACCCLEU","color":"Graphit",
-   "image":[sc+"img/display.webp",sc+"img/angle.webp",sc+"img/ports.webp",sc+"img/back.webp"],"offers":offer_free(sc,"59.95"),
+   "image":[sc+"img/hero-ring.webp",sc+"img/angle.webp",sc+"img/ports.webp",sc+"img/back.webp"],"offers":offer_free(sc,"59.95"),
    "isRelatedTo":{"@id":sc+"#cable"}},
   {"@type":"Product","@id":sc+"#cable","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":cb_desc,"url":sc+"#kaufen",
    "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.CC240","gtin13":"4251772542038","color":"Schwarz",
