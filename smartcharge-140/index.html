@@ -26,7 +26,6 @@
 </script>
 <link rel="preload" href="fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="img/hero-ring.webp" as="image" fetchpriority="high">
-<link rel="preload" href="img/hero-hi.webp" as="image">
 <link rel="preload" href="img/hero-face.webp" as="image">
 <link rel="preload" href="img/hero-cool.webp" as="image">
 <style>
@@ -117,8 +116,8 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(246,247,245,.86);ba
 .stage::after{display:none}
 .stage img.st{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .35s ease}
 .stage img.st.on{opacity:1}
-.stage .hot{position:absolute;left:84.6%;top:46.3%;width:9.6%;height:11.6%;transform:translate(-50%,-50%) rotate(-27deg);border:0;padding:0;background:transparent;cursor:pointer;border-radius:50%}
-.stage .hot i{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(0,211,50,.85);box-shadow:0 0 0 0 rgba(0,211,50,.4);animation:pulse 2.4s ease-out infinite}
+.stage .hot{position:absolute;left:85.14%;top:47.69%;width:6.76%;height:11.13%;transform:translate(-50%,-50%) rotate(147.5deg);border:0;padding:0;background:transparent;cursor:pointer;border-radius:50%}
+.stage .hot i{position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(0,211,50,.95);box-shadow:0 0 0 0 rgba(0,211,50,.4);animation:pulse 2.4s ease-out infinite}
 .stage .hot:hover i{background:rgba(0,211,50,.12)}
 .stage .hot:focus-visible{outline:3px solid var(--green);outline-offset:4px}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,211,50,.4)}70%{box-shadow:0 0 0 10px rgba(0,211,50,0)}100%{box-shadow:0 0 0 0 rgba(0,211,50,0)}}
@@ -334,7 +333,6 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
     <div class="hero-stage">
       <div class="stage-card">
         <div class="stage" id="stage">
-          <img class="st" data-st="hi" src="img/hero-hi.webp" width="1400" height="1400" alt="" aria-hidden="true" decoding="async">
           <img class="st" data-st="face" src="img/hero-face.webp" width="1400" height="1400" alt="" aria-hidden="true" decoding="async">
           <img class="st on" data-st="ring" src="img/hero-ring.webp" width="1400" height="1400" fetchpriority="high" decoding="sync" alt="GREENMNKY SmartCharge 140 schräg von vorn: Smart Display zeigt 140 W und die Leistung pro Anschluss, darunter drei USB-C- und ein USB-A-Anschluss">
           <img class="st" data-st="cool" src="img/hero-cool.webp" width="1400" height="1400" alt="" aria-hidden="true" decoding="async">
@@ -706,9 +704,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   function ready(img){ if(img.complete&&img.naturalWidth)return Promise.resolve(); return (img.decode?img.decode():Promise.resolve()).catch(function(){}); }
   function show(st){ var img=imgs[st]; if(!img)return; ready(img).then(function(){ cur=st; for(var k in imgs)imgs[k].classList.toggle("on",k===st); }); }
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(!reduce){ /* Einschaltsequenz erst, wenn Hi und Gesicht geladen sind – bis dahin bleibt der Ring stehen */
-    Promise.all([ready(imgs.hi),ready(imgs.face)]).then(function(){ show("hi"); seqTimer.push(setTimeout(function(){show("face")},1500)); seqTimer.push(setTimeout(function(){show("ring")},3300)); });
-  }
+
   $("dispBtn").addEventListener("click",function(){
     seqTimer.forEach(clearTimeout); $("dispHint").classList.add("off");
     var i=ST.indexOf(cur); show(ST[(i+1)%ST.length]);
