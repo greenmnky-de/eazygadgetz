@@ -1,0 +1,549 @@
+"""Baut die eigenständige Landingpage für den magnetischen Handyhalter mit Saugnapf (/magnethalter/).
+Eigener Look (Leinen/Koralle, Inter Display), unabhängig vom GREENMNKY-Grün der anderen Seiten.
+Produkt: DEVIA, Shopify-Variante 54777969803532, 19,95 €; der zweite Halter kostet über den
+automatischen Rabatt „Zweites Produkt für 5 EUR“ an der Kasse 5 € (geprüft: 2 Stück = 24,95 €).
+Bilder: generiert mit den Hersteller-Renderings als Vorlage (img/m-*.webp)."""
+import json
+import pathlib
+import re
+
+R = pathlib.Path(__file__).parent
+VAR = "54777969803532"
+B = "https://eazygadgetz.de/magnethalter/"
+UTM = "utm_source=eazygadgetz&amp;utm_medium=landingpage&amp;utm_campaign=magnethalter"
+URL1 = f"https://greenmnky.de/cart/{VAR}:1?{UTM}"
+
+OPTS = ('{"1":{items:"' + VAR + ':1",total:19.95,label:"1 Halter",sub:"inkl. MwSt., zzgl. 3,30 € Versand"},'
+        '"2":{items:"' + VAR + ':2",total:24.95,was:39.90,label:"2 Halter",sub:"inkl. MwSt., zzgl. 3,30 € Versand · du sparst 14,95 €"}}')
+
+ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+
+def ic(path, size=26):
+    return (f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{path}</svg>')
+
+I_GLASS = ic('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8l3-3M8 13l7-7"/>')
+I_MAG = ic('<path d="M6 3v8a6 6 0 0 0 12 0V3"/><path d="M6 7h4M14 7h4"/>')
+I_TURN = ic('<path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/>')
+I_DROP = ic('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>')
+I_JOINT = ic('<circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>')
+I_PHONE = ic('<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>')
+
+CSS = """
+@font-face{font-family:"Inter Display";src:url("fonts/interdisplay-800.woff2") format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Inter";src:url("fonts/inter-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("fonts/inter-600.woff2") format("woff2");font-weight:600;font-display:swap}
+:root{--bg:#F5F1EB;--paper:#FFFFFF;--sand:#ECE5DA;--ink:#15161A;--ink2:#2B2C31;--muted:#625F5A;--line:rgba(21,22,26,.12);
+--coral:#FF5A36;--coral-head:#E03E1A;--coral-ink:#B8321A;--coral-soft:#FFE4DB;--r:28px;--r-sm:18px;
+--display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin:0}
+p{margin:0}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;z-index:99}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.topbar{background:var(--ink);color:#F5F1EB;font-size:13px;font-weight:600;text-align:center;padding:9px 16px;letter-spacing:.01em}
+.topbar b{color:var(--coral)}
+.site{position:sticky;top:0;z-index:40;background:rgba(245,241,235,.86);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.site .wrap{display:flex;align-items:center;gap:18px;height:66px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.mark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--ink) 0 34%,transparent 35% 52%,var(--coral) 53% 100%);flex:none}
+.brand b{display:block;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.03em;line-height:1}
+.brand small{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+@media (max-width:479px){.brand small{display:none}}
+.nav{display:none;gap:26px;margin-left:auto;font-size:15px;font-weight:600}
+.nav a{text-decoration:none;color:var(--ink2)}
+.nav a:hover{color:var(--coral-ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--coral);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:17px;
+text-decoration:none;border:0;border-radius:999px;padding:16px 26px;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease;box-shadow:0 10px 24px rgba(255,90,54,.28)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(255,90,54,.34)}
+.btn.sm{padding:10px 16px;font-size:14.5px;box-shadow:none;margin-left:auto;white-space:nowrap}
+.btn.ink{background:var(--ink);color:#fff;box-shadow:0 10px 24px rgba(21,22,26,.22)}
+.btn.big{width:100%;padding:19px 26px;font-size:18px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--coral-ink);background:var(--coral-soft);padding:7px 12px;border-radius:999px}
+.kicker i{width:7px;height:7px;border-radius:50%;background:var(--coral)}
+section{padding:72px 0}
+.head{max-width:720px;margin-bottom:34px}
+.head h2{font-size:clamp(2.3rem,5.4vw,3.9rem)}
+.head h2 em,.hero h1 em{font-style:normal;color:var(--coral-head)}
+.head p{margin-top:14px;color:var(--muted);font-size:18px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-ink);margin-bottom:12px}
+/* hero */
+.hero{padding:34px 0 46px}
+.hero .wrap{display:grid;gap:26px;grid-template-areas:"copy" "img" "buy"}
+.hero-copy{grid-area:copy}
+.hero h1{font-size:clamp(3.1rem,11vw,6.2rem);margin:16px 0 18px}
+.lead{font-size:19px;color:var(--ink2);max-width:560px}
+.ticks{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:9px}
+.ticks li{display:flex;gap:10px;align-items:center;font-weight:600;font-size:16px}
+.ticks li::before{content:"";width:20px;height:20px;border-radius:50%;flex:none;background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315161A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+.hero-img{grid-area:img;position:relative;margin:0}
+.hero-img .frame{border-radius:var(--r);overflow:hidden;background:var(--sand);box-shadow:0 30px 70px rgba(21,22,26,.14)}
+.hero-img img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.sticker{position:absolute;right:-6px;top:22px;width:118px;height:118px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;text-align:center;
+transform:rotate(9deg);box-shadow:0 14px 30px rgba(21,22,26,.25);font-weight:600;font-size:13px;line-height:1.15;padding:12px}
+.sticker b{display:block;font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.03em;color:var(--coral);line-height:1}
+.buy{grid-area:buy;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:0 20px 50px rgba(21,22,26,.07);scroll-margin-top:90px}
+.stock{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink2)}
+.stock i{width:8px;height:8px;border-radius:50%;background:#1F9D55;box-shadow:0 0 0 4px rgba(31,157,85,.15)}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:14px 0 18px}
+.price strong{font-family:var(--display);font-weight:800;font-size:44px;letter-spacing:-.03em;line-height:1}
+.price s{color:var(--muted);font-size:20px}
+.price span{flex-basis:100%;font-size:14px;color:var(--muted)}
+fieldset{border:0;margin:0 0 18px;padding:0;display:grid;gap:10px}
+legend{font-weight:600;font-size:15px;margin-bottom:10px;padding:0}
+.opt{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center;border:2px solid var(--line);border-radius:var(--r-sm);padding:15px 16px;cursor:pointer;background:var(--bg);transition:border-color .15s,background .15s}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid #B9B3AA;grid-row:span 2;display:grid;place-items:center}
+.opt .t{font-weight:600;font-size:16.5px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.opt .s{grid-column:2;font-size:14px;color:var(--muted)}
+.opt .sum{grid-row:span 2;text-align:right;font-weight:600;font-size:17px;white-space:nowrap}
+.opt .sum s{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+.badge{display:inline-block;font-size:12px;font-weight:600;background:var(--coral);color:var(--ink);padding:3px 9px;border-radius:999px}
+.opt:has(input:checked){border-color:var(--ink);background:var(--paper)}
+.opt:has(input:checked) .dot{border-color:var(--ink)}
+.opt:has(input:checked) .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.opt:has(input:focus-visible){outline:3px solid var(--coral);outline-offset:2px}
+.ship{font-size:13.5px;color:var(--muted);margin-top:12px;text-align:center}
+.pay{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pay li{font-size:12.5px;font-weight:600;border:1px solid var(--line);border-radius:8px;padding:5px 9px;color:var(--ink2);background:var(--bg)}
+.assure{list-style:none;padding:14px 0 0;margin:16px 0 0;border-top:1px solid var(--line);display:grid;gap:6px;font-size:14px;color:var(--ink2)}
+.assure li{display:flex;gap:8px;align-items:center}
+.assure li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--coral);flex:none}
+.seller{font-size:12.5px;color:var(--muted);margin-top:10px}
+/* strip */
+.strip{padding:0 0 10px}
+.strip ul{list-style:none;margin:0;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r)}
+.strip li{display:flex;gap:12px;align-items:center;font-weight:600;font-size:15px;line-height:1.3}
+.strip .ico{width:44px;height:44px;border-radius:14px;background:var(--coral-soft);color:var(--coral-ink);display:grid;place-items:center;flex:none}
+/* steps */
+.steps-img{display:grid;gap:14px;grid-template-columns:1fr}
+.shot{margin:0;position:relative;border-radius:var(--r);overflow:hidden;background:var(--sand)}
+.shot img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.shot figcaption{position:absolute;left:14px;bottom:14px;background:rgba(21,22,26,.78);color:#fff;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.steps{list-style:none;counter-reset:s;margin:22px 0 0;padding:0;display:grid;gap:14px}
+.steps li{counter-increment:s;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:22px 22px 22px 76px;position:relative}
+.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:20px;top:20px;width:40px;height:40px;border-radius:12px;background:var(--ink);color:var(--coral);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:16px}
+.steps h3{font-size:22px;margin-bottom:6px}
+.steps p{color:var(--muted);font-size:16px}
+/* places */
+.places{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.place{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;display:flex;flex-direction:column}
+.place img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.place figcaption{padding:14px 16px 16px;display:grid;gap:4px}
+.place b{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em}
+.place span{font-size:14.5px;color:var(--muted);line-height:1.45}
+.note{margin-top:14px;font-size:13px;color:var(--muted)}
+/* dark features */
+.dark{background:var(--ink);color:#F5F1EB}
+.dark .head p{color:#B9B3AA}
+.dark .eyebrow{color:#FF8A6E}
+.dark .head h2 em{color:#FF6A47}
+.feats{display:grid;gap:12px;grid-template-columns:1fr}
+.feat{background:#1F2026;border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);padding:24px;display:grid;gap:10px;align-content:start}
+.feat .ico{width:48px;height:48px;border-radius:14px;background:rgba(255,90,54,.16);color:#FF7A5A;display:grid;place-items:center}
+.feat h3{font-size:22px}
+.feat p{color:#C9C3BA;font-size:16px}
+.dark .note{color:#9C968D}
+/* fit */
+.fit{display:grid;gap:12px;grid-template-columns:1fr}
+.fitcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:24px;display:grid;gap:8px;align-content:start}
+.fitcard .ico{width:48px;height:48px;border-radius:14px;background:var(--coral-soft);color:var(--coral-ink);display:grid;place-items:center}
+.fitcard h3{font-size:22px}
+.fitcard p{color:var(--muted);font-size:16px}
+.surf{margin-top:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:22px 24px;display:grid;gap:14px}
+.surf h3{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:0;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{font-size:14px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--coral-soft);color:var(--coral-ink)}
+.chips.no li{background:var(--bg);color:var(--muted);border:1px solid var(--line);font-weight:400}
+/* offer */
+.offer{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:1fr;box-shadow:0 30px 70px rgba(21,22,26,.08)}
+.offer .vis{margin:0;background:var(--sand)}
+.offer .vis img{width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
+.offer .copy{padding:28px 24px 30px;display:grid;gap:16px;align-content:center}
+.offer h2{font-size:clamp(2.2rem,5vw,3.4rem)}
+.offer h2 em{font-style:normal;color:var(--coral-head)}
+.offer p{color:var(--ink2)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmp div{border:2px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;background:var(--bg)}
+.cmp div.best{border-color:var(--ink);background:var(--paper)}
+.cmp span{display:block;font-size:13px;font-weight:600;color:var(--muted)}
+.cmp strong{display:block;font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.03em;margin-top:4px}
+.cmp small{display:block;font-size:13px;color:var(--muted)}
+.fine{font-size:13px;color:var(--muted)}
+/* faq */
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:0 20px}
+.faq summary{list-style:none;cursor:pointer;padding:19px 34px 19px 0;font-weight:600;font-size:17px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:24px;font-weight:400;color:var(--coral-ink)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 19px;color:var(--ink2);font-size:16px}
+.faq a{color:var(--coral-ink)}
+/* final */
+.final{background:var(--coral);text-align:center;padding:84px 0}
+.final h2{font-size:clamp(2.8rem,8vw,5.4rem)}
+.final p{margin:16px auto 26px;font-size:19px;font-weight:600;max-width:560px}
+.final .fine{color:var(--ink2);margin-top:16px;font-weight:400}
+/* footer */
+footer{background:var(--ink);color:#C9C3BA;font-size:14px;padding:46px 0 120px}
+footer .wrap{display:grid;gap:26px}
+footer h4{color:#fff;font-size:14px;margin:0 0 8px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer a{color:#F5F1EB}
+footer .legal{font-size:12.5px;color:#9C968D;display:grid;gap:8px;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
+/* sticky */
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:10px 10px 10px 12px;
+box-shadow:0 18px 40px rgba(21,22,26,.2);transform:translateY(140%);transition:transform .25s ease}
+.sticky.show{transform:none}
+.sticky img{width:44px;height:44px;border-radius:12px;object-fit:cover;flex:none}
+.sticky div{min-width:0;flex:1}
+.sticky b{display:block;font-size:15px;line-height:1.2}
+.sticky span{display:block;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sticky .btn{padding:12px 16px;font-size:15px;box-shadow:none}
+@media (min-width:640px){
+  .strip ul{grid-template-columns:repeat(4,1fr)}
+  .steps-img{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .places{grid-template-columns:repeat(4,1fr)}
+  .feats{grid-template-columns:1fr 1fr}
+  .fit{grid-template-columns:1fr 1fr}
+  .surf{grid-template-columns:1fr 1fr}
+}
+@media (min-width:960px){
+  .nav{display:flex}
+  .btn.sm{margin-left:8px}
+  section{padding:96px 0}
+  .hero{padding:52px 0 64px}
+  .hero .wrap{grid-template-columns:1.02fr .98fr;grid-template-areas:"copy img" "buy img";column-gap:56px;row-gap:28px;align-items:start}
+  .hero-img{position:sticky;top:96px}
+  .buy{max-width:520px}
+  .feats{grid-template-columns:repeat(4,1fr)}
+  .offer{grid-template-columns:1.05fr 1fr}
+  .offer .vis img{aspect-ratio:auto;min-height:100%}
+  .offer .copy{padding:44px 44px 44px 36px}
+  .sticky{display:none}
+  footer .wrap{grid-template-columns:1.3fr 1fr;column-gap:40px}
+  footer .legal{grid-column:1/-1}
+}
+"""
+
+main = f"""<section class="hero" id="top" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="kicker"><i aria-hidden="true"></i>Magnet + Saugnapf · 360° drehbar</p>
+      <h1 id="h1">Hände frei.<br><em>Überall.</em></h1>
+      <p class="lead">Andrücken, drehen, andocken: Der Magnet-Halter saugt sich an Fliesen, Spiegel, Glas und Armaturenbrett fest. Dein Handy klickt magnetisch an – hochkant oder quer.</p>
+      <ul class="ticks">
+        <li>Ohne Bohren, ohne Kleber</li>
+        <li>Starker Magnet für iPhone mit MagSafe</li>
+        <li>Mit einer Drehung wieder gelöst</li>
+      </ul>
+    </div>
+
+    <figure class="hero-img">
+      <div class="frame"><img src="img/m-hero-1200.webp" srcset="img/m-hero-720.webp 720w, img/m-hero-1200.webp 1200w" sizes="(min-width:960px) 540px, calc(100vw - 40px)" width="1200" height="1490" alt="Magnet-Handyhalter mit Saugnapf an weißen Küchenfliesen, daran ein Smartphone mit Rezept" fetchpriority="high"></div>
+      <figcaption class="sticker"><span><b>5 €</b>für den zweiten Halter</span></figcaption>
+    </figure>
+
+    <div class="buy" id="kaufen">
+      <p class="stock"><i aria-hidden="true"></i>Auf Lager · Versand mit DHL aus Deutschland</p>
+      <div class="price" aria-live="polite"><strong id="priceMain">19,95&nbsp;€</strong><s id="priceWas" style="display:none"></s><span id="priceSub">inkl. MwSt., zzgl. 3,30 € Versand</span></div>
+      <form id="buyForm" aria-label="Menge wählen">
+        <fieldset>
+          <legend>Wie viele Halter?</legend>
+          <label class="opt"><input type="radio" name="opt" value="1" checked><span class="dot" aria-hidden="true"></span><span class="t">1 Halter</span><span class="sum">19,95&nbsp;€</span><span class="s">Für einen festen Platz</span></label>
+          <label class="opt"><input type="radio" name="opt" value="2"><span class="dot" aria-hidden="true"></span><span class="t">2 Halter <span class="badge">Zweiter für 5&nbsp;€</span></span><span class="sum">24,95&nbsp;€<s>39,90&nbsp;€</s></span><span class="s">Zum Beispiel fürs Bad und fürs Auto</span></label>
+        </fieldset>
+      </form>
+      <a class="btn big" id="buy" href="{URL1}"><span id="buyLabel">Jetzt bestellen · 19,95&nbsp;€</span>{ARROW}</a>
+      <p class="ship">Weiter zur sicheren Kasse von GREENMNKY. Ab 50 € versandkostenfrei.</p>
+      <ul class="pay" aria-label="Zahlarten"><li>PayPal</li><li>Apple Pay</li><li>Google Pay</li><li>Klarna</li><li>Kreditkarte</li></ul>
+      <ul class="assure">
+        <li>Über 100.000 Bestellungen über greenmnky.de</li>
+        <li>14 Tage Widerruf, 2 Jahre Gewährleistung</li>
+      </ul>
+      <p class="seller">Marke: DEVIA · Verkauf und Versand durch die GREENMNKY GmbH, Deutschland</p>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <ul>
+      <li><span class="ico">{I_GLASS}</span>Hält auf Glas und Fliesen</li>
+      <li><span class="ico">{I_MAG}</span>Bis 50&nbsp;N Magnetkraft*</li>
+      <li><span class="ico">{I_JOINT}</span>Dreht und neigt sich</li>
+      <li><span class="ico">{I_DROP}</span>Saugnapf abwaschbar</li>
+    </ul>
+  </div>
+</div>
+
+<section id="so" aria-labelledby="h-so">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">So geht's</p>
+      <h2 id="h-so">In drei Sekunden<br><em>angebracht.</em></h2>
+      <p>Kein Werkzeug, kein Kleber, keine Löcher in den Fliesen. Und wenn du den Platz wechseln willst, ist er genauso schnell wieder ab.</p>
+    </div>
+    <div class="steps-img">
+      <figure class="shot"><img src="img/m-base.webp" width="1400" height="1045" alt="Eine Hand dreht den geriffelten Ring am Fuß des Halters, der Saugnapf liegt flach auf Marmor" loading="lazy"><figcaption>Drehen statt kleben</figcaption></figure>
+      <figure class="shot"><img src="img/m-snap.webp" width="1400" height="1045" alt="Ein Smartphone kurz bevor es an der runden Magnetplatte des Halters andockt" loading="lazy"><figcaption>Klick – und hält</figcaption></figure>
+    </div>
+    <ol class="steps">
+      <li><h3>Andrücken</h3><p>Den Saugnapf auf eine glatte, saubere Fläche setzen.</p></li>
+      <li><h3>Drehen</h3><p>Den Ring am Fuß drehen: Das Vakuum zieht den Saugnapf fest. Zum Lösen einfach zurückdrehen.</p></li>
+      <li><h3>Andocken</h3><p>Handy ranhalten, klick. Das Gelenk ausrichten – hochkant, quer oder schräg.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="orte" aria-labelledby="h-orte" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Einsatzorte</p>
+      <h2 id="h-orte">Ein Halter.<br><em>Viele Plätze.</em></h2>
+    </div>
+    <div class="places">
+      <figure class="place"><img src="img/m-bath.webp" width="800" height="993" alt="Halter an einer Glaswand im Bad, daran ein Smartphone mit Video" loading="lazy"><figcaption><b>Bad</b><span>Am Spiegel oder an der Glaswand: Tutorials, Serien, Musik.</span></figcaption></figure>
+      <figure class="place"><img src="img/m-desk.webp" width="800" height="993" alt="Halter auf einem weißen Schreibtisch, daran ein Smartphone im Querformat mit Videocall" loading="lazy"><figcaption><b>Schreibtisch</b><span>Videocalls und zweiter Bildschirm, quer auf Augenhöhe.</span></figcaption></figure>
+      <figure class="place"><img src="img/m-car.webp" width="800" height="993" alt="Halter auf dem Armaturenbrett eines Autos, daran ein Smartphone mit Navigationskarte" loading="lazy"><figcaption><b>Auto</b><span>Navi im Blick, auf dem glatten Armaturenbrett oder an der Scheibe.</span></figcaption></figure>
+      <figure class="place"><img src="img/m-train.webp" width="800" height="993" alt="Halter am Zugfenster, daran ein Smartphone im Querformat mit Film" loading="lazy"><figcaption><b>Unterwegs</b><span>Am Zug- oder Hotelfenster: Filme schauen, ohne das Handy zu halten.</span></figcaption></figure>
+    </div>
+    <p class="note">Abbildungen beispielhaft. Im Auto so anbringen, dass Sicht, Bedienelemente und Airbags frei bleiben.</p>
+  </div>
+</section>
+
+<section class="dark" id="details" aria-labelledby="h-det">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Details</p>
+      <h2 id="h-det">Klein. Stark.<br><em>Beweglich.</em></h2>
+      <p>Alles, was ein Halter für jeden Tag braucht – und nichts, was stört.</p>
+    </div>
+    <div class="feats">
+      <div class="feat"><span class="ico">{I_MAG}</span><h3>Starker Magnet</h3><p>Laut Hersteller 17 Magnete und bis zu 50&nbsp;N Zugkraft. Das Handy bleibt dran, auch wenn du tippst.</p></div>
+      <div class="feat"><span class="ico">{I_TURN}</span><h3>Vakuum statt Kleber</h3><p>Der Drehring erzeugt Unterdruck. Hält auf Glas, Spiegel, Fliesen, Metall, Marmor und Acryl.</p></div>
+      <div class="feat"><span class="ico">{I_JOINT}</span><h3>Doppelgelenk</h3><p>Dreht und neigt sich in jede Richtung: hochkant, quer oder schräg.</p></div>
+      <div class="feat"><span class="ico">{I_DROP}</span><h3>Abwaschbar</h3><p>Lässt der Halt nach, den Saugnapf mit Wasser abspülen und trocknen lassen – dann saugt er wieder.</p></div>
+    </div>
+    <p class="note">* Herstellerangaben.</p>
+  </div>
+</section>
+
+<section id="passt" aria-labelledby="h-fit">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Kompatibel</p>
+      <h2 id="h-fit">Passt zu deinem<br><em>Handy.</em></h2>
+    </div>
+    <div class="fit">
+      <div class="fitcard"><span class="ico">{I_PHONE}</span><h3>iPhone 12 bis 17</h3><p>Hält direkt, dank des MagSafe-Magneten im iPhone. Auch mit MagSafe-Hülle.</p></div>
+      <div class="fitcard"><span class="ico">{I_PHONE}</span><h3>Samsung, Pixel &amp; Co.</h3><p>Mit einer Magnet-Hülle oder einem Magnetring zum Aufkleben hält jedes Handy.</p></div>
+    </div>
+    <div class="surf">
+      <div><h3>Hält auf glatten Flächen</h3><ul class="chips"><li>Glas</li><li>Spiegel</li><li>Fliesen</li><li>Metall</li><li>Marmor</li><li>Acryl</li><li>glatter Kunststoff</li></ul></div>
+      <div><h3>Nicht geeignet für</h3><ul class="chips no"><li>Tapete</li><li>Putz</li><li>raues Holz</li><li>genarbten Kunststoff</li><li>Leder und Stoff</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="set" aria-labelledby="h-set" style="padding-top:0">
+  <div class="wrap">
+    <div class="offer">
+      <figure class="vis"><img src="img/m-duo.webp" width="1400" height="1045" alt="Zwei Magnet-Halter nebeneinander, an einem hängt ein Smartphone" loading="lazy"></figure>
+      <div class="copy">
+        <p class="eyebrow" style="margin:0">Doppelt praktisch</p>
+        <h2 id="h-set">Zweiter Halter<br><em>für 5 €.</em></h2>
+        <p>Einer fürs Bad, einer fürs Auto oder den Schreibtisch: Nimm zwei, der zweite kostet nur 5 €. Der Rabatt wird an der Kasse automatisch abgezogen.</p>
+        <div class="cmp">
+          <div><span>1 Halter</span><strong>19,95 €</strong><small>zzgl. 3,30 € Versand</small></div>
+          <div class="best"><span>2 Halter</span><strong>24,95 €</strong><small><s>39,90 €</s> · du sparst 14,95 €</small></div>
+        </div>
+        <button class="btn" type="button" data-pick="2">2 Halter wählen · 24,95 € {ARROW}</button>
+        <p class="fine">Kein Code nötig. Gilt für den zweiten Halter im Warenkorb.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="h-faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Fragen</p>
+      <h2 id="h-faq">Gut zu wissen.</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Hält der Halter auch im Auto?</summary><p>Ja, auf glatten, ebenen Flächen wie dem Armaturenbrett oder einer Scheibe. Bring ihn so an, dass Sicht, Bedienelemente und Airbags frei bleiben. Auf rauem oder genarbtem Kunststoff hält ein Saugnapf nicht zuverlässig.</p></details>
+      <details><summary>Funktioniert er mit Handyhülle?</summary><p>Mit einer MagSafe- oder Magnet-Hülle ja. Bei Hüllen ohne Magnet brauchst du einen Magnetring zum Aufkleben.</p></details>
+      <details><summary>Welche Handys passen?</summary><p>iPhone 12 bis 17 halten direkt über MagSafe. Andere Handys halten mit einer Magnet-Hülle oder einem Magnetring.</p></details>
+      <details><summary>Wie bekomme ich ihn wieder ab?</summary><p>Den Ring in die andere Richtung drehen: Das Vakuum löst sich und der Saugnapf kommt ab, ohne Kleberreste.</p></details>
+      <details><summary>Er hält nicht mehr so gut – was tun?</summary><p>Den Saugnapf mit Wasser abspülen, an der Luft trocknen lassen und die Fläche kurz abwischen. Staub und Fett sind die häufigsten Gründe.</p></details>
+      <details><summary>Wie funktioniert „Zweiter Halter für 5 €“?</summary><p>Automatisch: Liegen zwei Halter im Warenkorb, kostet der zweite an der Kasse nur 5 €. Du brauchst keinen Code.</p></details>
+      <details><summary>Was kostet der Versand und wie schnell kommt er?</summary><p>Wir versenden mit DHL aus Deutschland. Unter 50 € kostet der Versand 3,30 €, ab 50 € nichts. Du hast 14 Tage Widerrufsrecht und 2 Jahre Gewährleistung.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final" aria-labelledby="h-final">
+  <div class="wrap">
+    <h2 id="h-final">Hände frei.<br>Ab heute.</h2>
+    <p>19,95 € für einen Halter, 24,95 € für zwei.</p>
+    <a class="btn ink" href="#kaufen">Jetzt bestellen {ARROW}</a>
+    <p class="fine">14 Tage Widerruf · 2 Jahre Gewährleistung · Kasse von GREENMNKY, kein Kundenkonto nötig</p>
+  </div>
+</section>"""
+
+# Preis und €-Zeichen nie trennen
+main = re.sub(r"(\d) €", r"\1&nbsp;€", main)
+
+LD = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {"@type": "Product", "@id": B + "#product",
+         "name": "Magnetischer Handyhalter mit Saugnapf, 360° drehbar, Schwarz",
+         "description": "Magnetischer Handyhalter mit Vakuum-Saugbasis für glatte Flächen wie Glas, Spiegel, Fliesen und Armaturenbrett. Drehbar für Hoch- und Querformat, für iPhone mit MagSafe und Handys mit Magnet-Hülle.",
+         "brand": {"@type": "Brand", "name": "DEVIA"},
+         "sku": "120ES0870001",
+         "image": [B + "img/m-hero-1200.webp", B + "img/m-duo.webp", B + "img/m-car.webp"],
+         "offers": {"@type": "Offer", "url": B, "priceCurrency": "EUR", "price": "19.95",
+                    "availability": "https://schema.org/InStock", "itemCondition": "https://schema.org/NewCondition",
+                    "seller": {"@type": "Organization", "name": "GREENMNKY GmbH"},
+                    "shippingDetails": {"@type": "OfferShippingDetails",
+                                        "shippingRate": {"@type": "MonetaryAmount", "value": "3.30", "currency": "EUR"},
+                                        "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "DE"}},
+                    "hasMerchantReturnPolicy": {"@type": "MerchantReturnPolicy", "applicableCountry": "DE",
+                                                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                                                "merchantReturnDays": 14}}},
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "eazygadgetz", "item": "https://eazygadgetz.de/"},
+            {"@type": "ListItem", "position": 2, "name": "Magnet-Handyhalter mit Saugnapf", "item": B}]},
+    ]}
+
+JS = """(function(){
+  var $=function(id){return document.getElementById(id)};
+  var eur=function(n){return n.toFixed(2).replace(".",",")+"\\u00a0€"};
+  var UTM=(function(){
+    try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
+      if(has)return o.toString();}catch(e){}
+    return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=magnethalter";
+  })();
+  var OPTS=__OPTS__;
+  var opt="1";
+  function update(){
+    var o=OPTS[opt];
+    $("priceMain").textContent=eur(o.total);
+    $("priceWas").textContent=o.was?eur(o.was):""; $("priceWas").style.display=o.was?"":"none";
+    $("priceSub").textContent=o.sub;
+    $("buyLabel").textContent="Jetzt bestellen · "+eur(o.total);
+    var url="https://greenmnky.de/cart/"+o.items+"?"+UTM; $("buy").href=url; $("stickyBuy").href=url;
+    $("stickySub").textContent=o.label+" · "+eur(o.total);
+  }
+  document.querySelectorAll('input[name="opt"]').forEach(function(i){i.addEventListener("change",function(){opt=this.value;update()})});
+  $("buyForm").addEventListener("submit",function(e){e.preventDefault()});
+  document.querySelectorAll("[data-pick]").forEach(function(b){b.addEventListener("click",function(){var v=this.getAttribute("data-pick");var r=document.querySelector('input[name="opt"][value="'+v+'"]');if(r){r.checked=true;opt=v;update();}$("kaufen").scrollIntoView({behavior:"smooth",block:"start"});})});
+  var sticky=$("sticky");
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(entries){var e=entries[0];var past=!e.isIntersecting&&e.boundingClientRect.top<0;sticky.classList.toggle("show",past);sticky.setAttribute("aria-hidden",String(!past));$("stickyBuy").tabIndex=past?0:-1;}).observe($("buy"));
+  }
+  update();
+})();""".replace("__OPTS__", OPTS)
+
+html = f"""<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnet-Handyhalter mit Saugnapf – hält an Fliesen, Spiegel und Glas | eazygadgetz</title>
+<meta name="description" content="Magnetischer Handyhalter mit Vakuum-Saugnapf: andrücken, drehen, Handy andocken. Für Küche, Bad, Schreibtisch und Auto, drehbar, für iPhone mit MagSafe. 19,95 €, zweiter Halter für 5 €.">
+<link rel="canonical" href="{B}">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F5F1EB">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="product">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="eazygadgetz">
+<meta property="og:title" content="Hände frei. Überall. – Magnet-Handyhalter mit Saugnapf">
+<meta property="og:description" content="Andrücken, drehen, andocken: hält an Fliesen, Spiegel, Glas und im Auto. 19,95 €, zweiter Halter für 5 €.">
+<meta property="og:url" content="{B}">
+<meta property="og:image" content="{B}img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/interdisplay-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="img/m-hero-1200.webp" imagesrcset="img/m-hero-720.webp 720w, img/m-hero-1200.webp 1200w" imagesizes="(min-width:960px) 540px, calc(100vw - 40px)" fetchpriority="high">
+<style>{CSS}</style>
+<script type="application/ld+json">
+{json.dumps(LD, ensure_ascii=False)}
+</script>
+</head>
+<body>
+<a class="skip" href="#kaufen">Direkt zur Bestellung</a>
+<p class="topbar">Versand mit DHL aus Deutschland · <b>Zweiter Halter für 5&nbsp;€</b> · 14 Tage Widerruf</p>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Magnethalter, nach oben"><span class="mark" aria-hidden="true"></span><span><b>Magnethalter</b><small>von DEVIA · Verkauf durch GREENMNKY</small></span></a>
+    <nav class="nav" aria-label="Seitenbereiche">
+      <a href="#so">So geht's</a>
+      <a href="#orte">Einsatzorte</a>
+      <a href="#passt">Passt zu</a>
+      <a href="#faq">Fragen</a>
+    </nav>
+    <a class="btn sm" href="#kaufen">Kaufen · 19,95&nbsp;€</a>
+  </div>
+</header>
+<main>
+{main}
+</main>
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>Verkauf und Versand</h4>
+      <p>GREENMNKY GmbH · Lindigstraße 1 · 63801 Kleinostheim<br>Telefon +49 6021 43 76 84 0 · <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a></p>
+      <p style="margin-top:10px"><a href="/">Mehr Gadgets bei eazygadgetz</a></p>
+    </div>
+    <div>
+      <h4>Rechtliches</h4>
+      <ul>
+        <li><a href="/impressum/">Impressum</a></li>
+        <li><a href="/datenschutz/">Datenschutz</a></li>
+        <li><a href="https://greenmnky.de/policies/terms-of-service">AGB</a></li>
+        <li><a href="https://greenmnky.de/policies/refund-policy">Widerrufsrecht</a></li>
+        <li><a href="https://greenmnky.de/policies/shipping-policy">Versand und Zahlung</a></li>
+      </ul>
+    </div>
+    <div class="legal" id="produktsicherheit">
+      <p><strong>Hinweise zur Produktsicherheit.</strong> Verantwortlicher Wirtschaftsakteur in der EU: GREENMNKY GmbH, Lindigstraße 1, 63801 Kleinostheim, Deutschland, <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>. Weitere Angaben findest du auf der Verpackung.</p>
+      <p>Enthält starke Magnete: Abstand zu Herzschrittmachern, Bankkarten und anderen magnetischen Datenträgern halten. Nur auf glatten, sauberen Flächen anbringen. Im Auto so anbringen, dass Sicht, Bedienelemente und Airbags frei bleiben.</p>
+      <p>iPhone und MagSafe sind Marken der Apple Inc. Samsung ist eine Marke der Samsung Electronics Co., Ltd. Pixel ist eine Marke von Google LLC. Die Nennung dient nur dem Hinweis auf die Kompatibilität. Abbildungen beispielhaft.</p>
+    </div>
+  </div>
+</footer>
+<div class="sticky" id="sticky" aria-hidden="true">
+  <img src="img/m-thumb.webp" width="200" height="200" alt="">
+  <div><b>Magnethalter</b><span id="stickySub">1 Halter · 19,95&nbsp;€</span></div>
+  <a class="btn" id="stickyBuy" href="{URL1}" tabindex="-1">Bestellen</a>
+</div>
+<script>
+{JS}
+</script>
+</body>
+</html>
+"""
+
+if __name__ == "__main__":
+    out = R / "magnethalter/index.html"
+    out.write_text(html, encoding="utf-8")
+    css = re.sub(r"/\*.*?\*/", "", CSS, flags=re.S)
+    print("magnethalter/index.html", len(html) // 1024, "KB, CSS-Regeln:", css.count("}"))
