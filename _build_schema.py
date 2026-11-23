@@ -24,7 +24,7 @@ VAR=[("Schwarz","WA.PT.B","6980145640009","var-black.webp"),("Rosé","WA.PT.RG",
 PG={"@context":"https://schema.org","@graph":[ORG,
   {"@type":"ProductGroup","@id":pt+"#product","name":"PhotoTag – Tracker mit Foto-Display für iPhone & Android","description":pt_desc,"url":pt,
    "brand":{"@type":"Brand","name":"PhotoTag"},"productGroupID":"WA.PT","variesBy":["https://schema.org/color"],
-   "image":[pt+"img/var-black.webp",pt+"img/koffer.webp",pt+"img/foto-eink.webp",pt+"img/tag-cord-cat.webp"],
+   "image":[pt+"img/var-black.webp",pt+"img/koffer-ring.webp",pt+"img/foto-eink.webp",pt+"img/tag-hand.webp"],
    "hasVariant":[{"@type":"Product","name":f"PhotoTag {n}","description":f"PhotoTag in {n}. "+pt_desc,"sku":sku,"gtin13":ean,"color":n,"image":pt+"img/"+img,"offers":offer(pt,"29.99")} for n,sku,ean,img in VAR]},
   crumbs("PhotoTag","/phototag/")]}
 r=B+"/ring-ii/"
