@@ -60,7 +60,7 @@ cbp=B+"/kabel-240/"
 CB={"@context":"https://schema.org","@graph":[ORG,
   {"@type":"Product","@id":cbp+"#product","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":cb_desc,"url":cbp,
    "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.CC240","gtin13":"4251772542038","color":"Schwarz",
-   "image":[cbp+"img/cable-coil.webp",cbp+"img/cable-plugs.webp",cbp+"img/real-cable-iphone.webp"],"offers":offer(cbp,"24.95")},
+   "image":[cbp+"img/k-hero-1200.webp",cbp+"img/k-display.webp",cbp+"img/k-laptop.webp",cbp+"img/cable-coil.webp"],"offers":offer(cbp,"24.95")},
   crumbs("SmartCharge Cable 240","/kabel-240/")]}
 HG={"@context":"https://schema.org","@graph":[ORG,{"@type":"WebSite","@id":B+"/#website","url":B+"/","name":"eazygadgetz","inLanguage":"de","publisher":SELLER}]}
 
