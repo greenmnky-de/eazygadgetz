@@ -266,7 +266,7 @@ html = page(
     name="SmartCharge Cable 240", logo="Cable 240", price="24,95 €",
     nav='      <a href="/">Alle Gadgets</a>\n      <a href="#display">Display</a>\n      <a href="#einsatz">Passt zu</a>\n      <a href="#set">Spar-Set</a>\n      <a href="#technik">Technik</a>\n      <a href="#faq">Fragen</a>',
     main=main,
-    footer_links='<a href="/">Alle Gadgets bei eazygadgetz</a> · <a href="/smartcharge-140/">SmartCharge 140</a> · <a href="/smartcharge-65/">SmartCharge 65</a> · <a href="/ring-ii/">OnCtrl Ring II</a> · <a href="/phototag/">PhotoTag</a>',
+    footer_links='<a href="/">Alle Gadgets bei eazygadgetz</a> · <a href="/smartcharge-140/">SmartCharge 140</a> · <a href="/smartcharge-65/">SmartCharge 65</a> · <a href="/ring-ii/">OnCtrl Ring II</a> · <a href="/phototag/">PhotoTag</a> · <a href="/magnethalter/">Magnethalter</a>',
     safety="Nicht knicken, nicht an beschädigten Kabeln weiterladen. Elektrogeräte gehören nicht in den Hausmüll, sondern zu einer Sammelstelle.",
     marks="Apple, MacBook, iPad und iPhone sind Marken der Apple Inc. Samsung Galaxy ist eine Marke der Samsung Electronics Co., Ltd. Nintendo Switch ist eine Marke von Nintendo. Die Nennung dient nur dem Hinweis auf die Kompatibilität. Produktabbildungen beispielhaft.",
     sticky_img="img/k-thumb.webp", sticky_sub="Nur das Kabel · 24,95 €", first_url=URLCB,

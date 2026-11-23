@@ -455,7 +455,7 @@ sc65 = page(
     name="SmartCharge 65", logo="SmartCharge 65", price="29,95 €",
     nav='      <a href="/">Alle Gadgets</a>\n      <a href="#alltag">Alltag</a>\n      <a href="#display">Display</a>\n      <a href="#vergleich">Vergleich</a>\n      <a href="#technik">Technik</a>\n      <a href="#faq">Fragen</a>',
     main=main65,
-    footer_links='<a href="/">Alle Gadgets bei eazygadgetz</a> · <a href="/smartcharge-140/">SmartCharge 140</a> · <a href="/kabel-240/">SmartCharge Cable 240</a> · <a href="/ring-ii/">OnCtrl Ring II</a> · <a href="/phototag/">PhotoTag</a>',
+    footer_links='<a href="/">Alle Gadgets bei eazygadgetz</a> · <a href="/smartcharge-140/">SmartCharge 140</a> · <a href="/kabel-240/">SmartCharge Cable 240</a> · <a href="/ring-ii/">OnCtrl Ring II</a> · <a href="/phototag/">PhotoTag</a> · <a href="/magnethalter/">Magnethalter</a>',
     safety="Nur für den Betrieb in trockenen Innenräumen. Nicht abdecken, nicht öffnen, nicht mit beschädigtem Gehäuse verwenden. Elektrogeräte gehören nicht in den Hausmüll, sondern zu einer Sammelstelle.",
     marks="Apple, MacBook, iPad und iPhone sind Marken der Apple Inc. Samsung Galaxy ist eine Marke der Samsung Electronics Co., Ltd. Nintendo Switch ist eine Marke von Nintendo. Die Nennung dient nur dem Hinweis auf die Kompatibilität. Preisangabe zum Apple-Netzteil: Apple Store Deutschland, Stand November 2026.",
     sticky_img="img/front.webp", sticky_sub="Nur Ladegerät · 29,95 €", first_url=URL65,
