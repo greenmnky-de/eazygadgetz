@@ -1,4 +1,4 @@
-"""Schreibt die JSON-LD-Blöcke (schema.org) in Startseite, Ring II, PhotoTag und SmartCharge 140. Idempotent: ersetzt vorhandene Blöcke."""
+"""Schreibt die JSON-LD-Blöcke (schema.org) in Startseite, Ring II, PhotoTag, SmartCharge 140, SmartCharge 65 und Cable 240. Idempotent: ersetzt vorhandene Blöcke."""
 import json, pathlib, re
 B="https://eazygadgetz.de"
 ORG={"@type":"Organization","@id":B+"/#org","name":"eazygadgetz","legalName":"GREENMNKY GmbH","url":B+"/","logo":B+"/img/logo.png",
@@ -45,10 +45,23 @@ SC={"@context":"https://schema.org","@graph":[ORG,
    "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.C140","gtin13":"4251772541970","mpn":"RCE-14005ACCCLEU","color":"Graphit",
    "image":[sc+"img/hero-ring.webp",sc+"img/angle.webp",sc+"img/ports.webp",sc+"img/back.webp"],"offers":offer_free(sc,"59.95"),
    "isRelatedTo":{"@id":sc+"#cable"}},
-  {"@type":"Product","@id":sc+"#cable","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":cb_desc,"url":sc+"#kaufen",
+  {"@type":"Product","@id":sc+"#cable","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":cb_desc,"url":B+"/kabel-240/",
    "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.CC240","gtin13":"4251772542038","color":"Schwarz",
-   "image":[sc+"img/cable-plugs.webp",sc+"img/cable-coil.webp"],"offers":offer(sc+"#kaufen","24.95")},
+   "image":[sc+"img/cable-plugs.webp",sc+"img/cable-coil.webp"],"offers":offer(B+"/kabel-240/","24.95")},
   crumbs("SmartCharge 140","/smartcharge-140/")]}
+s65=B+"/smartcharge-65/"
+s65_desc="65-W-GaN-Ladegerät mit einem USB-C-Anschluss (Power Delivery: 5 V⎓3 A, 9 V⎓3 A, 15 V⎓3 A, 20 V⎓3,25 A) und Smart Display, das die aktuelle Ladeleistung zeigt. Eurostecker, 80 × 42,5 × 42,5 mm, 108 g. Lädt iPhone, iPad, MacBook Air und viele USB-C-Laptops."
+S65={"@context":"https://schema.org","@graph":[ORG,
+  {"@type":"Product","@id":s65+"#product","name":"GREENMNKY SmartCharge 65 – 65W GaN USB-C Ladegerät mit Smart Display","description":s65_desc,"url":s65,
+   "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.C65","gtin13":"4251772541826","color":"Graphit",
+   "image":[s65+"img/hero.webp",s65+"img/front.webp",s65+"img/back.webp",s65+"img/display.webp"],"offers":offer(s65,"29.95")},
+  crumbs("SmartCharge 65","/smartcharge-65/")]}
+cbp=B+"/kabel-240/"
+CB={"@context":"https://schema.org","@graph":[ORG,
+  {"@type":"Product","@id":cbp+"#product","name":"GREENMNKY SmartCharge Cable 240 – 240W USB-C Ladekabel mit Display, 1,5 m","description":cb_desc,"url":cbp,
+   "brand":{"@type":"Brand","name":"GREENMNKY"},"sku":"CHA.GWT.CC240","gtin13":"4251772542038","color":"Schwarz",
+   "image":[cbp+"img/cable-coil.webp",cbp+"img/cable-plugs.webp",cbp+"img/real-cable-iphone.webp"],"offers":offer(cbp,"24.95")},
+  crumbs("SmartCharge Cable 240","/kabel-240/")]}
 HG={"@context":"https://schema.org","@graph":[ORG,{"@type":"WebSite","@id":B+"/#website","url":B+"/","name":"eazygadgetz","inLanguage":"de","publisher":SELLER}]}
 
 def inject(path,data,marker):
@@ -62,3 +75,5 @@ inject(R/"phototag/index.html",PG,'<link rel="preload" href="fonts/archivo.woff2
 inject(R/"ring-ii/index.html",RG,'<link rel="preload" href="fonts/rubik.woff2"')
 inject(R/"index.html",HG,'<link rel="preload" href="/ring-ii/fonts/rubik.woff2"')
 inject(R/"smartcharge-140/index.html",SC,'<link rel="preload" href="fonts/rubik.woff2"')
+inject(R/"smartcharge-65/index.html",S65,'<link rel="preload" href="fonts/rubik.woff2"')
+inject(R/"kabel-240/index.html",CB,'<link rel="preload" href="fonts/rubik.woff2"')
