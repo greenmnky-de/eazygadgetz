@@ -721,10 +721,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   var eur=function(n){return n.toFixed(2).replace(".",",")+" €"};
   var V140="66075700363532", V240="66079483592972";
   var UTM=(function(){
-    try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
-      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
-      if(has)return o.toString();}catch(e){}
-    return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=smartcharge140";
+    var o=new URLSearchParams(),has=false;
+    try{var q=new URLSearchParams(location.search);
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});}catch(e){}
+    if(!has){o.set("utm_source","eazygadgetz");o.set("utm_medium","landingpage");o.set("utm_campaign","smartcharge140");}
+    /* Herkunft zusätzlich als Bestell-Attribute: steht in jeder Bestellung unter „Zusätzliche Details“, auch ohne Cookie-Zustimmung im Shop */
+    ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){var v=o.get(k);if(v)o.set("attributes["+k+"]",v.slice(0,100));});
+    o.set("attributes[landingpage]",location.pathname);
+    return o.toString();
   })();
   var OPTS={"1":{items:V140+":1",total:59.95,label:"Ohne Kabel"},"set":{items:V140+":1,"+V240+":1",total:69.95,was:84.90,save:14.95,label:"Mit Kabel"}};
   var opt="set";
@@ -794,5 +798,6 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   update();
 })();
 </script>
+<script src="/consent.js?v=1" defer></script>
 </body>
 </html>

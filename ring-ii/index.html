@@ -753,10 +753,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   var PRICE=29.95, FREE=50, SET_QTY=3, SET_OFF=10, SET_CODE="RING3SET10";
   var UTM=(function(){
     /* UTMs aus dem eingehenden Link (Insta/TikTok/Ads) an den Checkout durchreichen, sonst Default */
-    try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
-      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
-      if(has)return o.toString();}catch(e){}
-    return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=ring2";
+    var o=new URLSearchParams(),has=false;
+    try{var q=new URLSearchParams(location.search);
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});}catch(e){}
+    if(!has){o.set("utm_source","eazygadgetz");o.set("utm_medium","landingpage");o.set("utm_campaign","ring2");}
+    /* Herkunft zusätzlich als Bestell-Attribute: steht in jeder Bestellung unter „Zusätzliche Details“, auch ohne Cookie-Zustimmung im Shop */
+    ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){var v=o.get(k);if(v)o.set("attributes["+k+"]",v.slice(0,100));});
+    o.set("attributes[landingpage]",location.pathname);
+    return o.toString();
   })();
   var MODES={
     cam:{c:"var(--blue)",img:"ring-blue.webp",t:"<b>Blau, Action Cam:</b> Foto auslösen, Video starten und stoppen, zwischen Foto, Video und Zeitraffer wechseln."},
@@ -836,5 +840,6 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   update();
 })();
 </script>
+<script src="/consent.js?v=1" defer></script>
 </body>
 </html>

@@ -687,10 +687,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   var $=function(id){return document.getElementById(id)};
   var eur=function(n){return n.toFixed(2).replace(".",",")+" €"};
   var UTM=(function(){
-    try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
-      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
-      if(has)return o.toString();}catch(e){}
-    return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=cable240";
+    var o=new URLSearchParams(),has=false;
+    try{var q=new URLSearchParams(location.search);
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});}catch(e){}
+    if(!has){o.set("utm_source","eazygadgetz");o.set("utm_medium","landingpage");o.set("utm_campaign","cable240");}
+    /* Herkunft zusätzlich als Bestell-Attribute: steht in jeder Bestellung unter „Zusätzliche Details“, auch ohne Cookie-Zustimmung im Shop */
+    ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){var v=o.get(k);if(v)o.set("attributes["+k+"]",v.slice(0,100));});
+    o.set("attributes[landingpage]",location.pathname);
+    return o.toString();
   })();
   var OPTS={"1":{items:"66079483592972:1",total:24.95,label:"Nur das Kabel",sub:"inkl. MwSt., zzgl. 3,30 € Versand",ship:"Weiter zur sicheren Kasse von GREENMNKY. Ab 50 € versandkostenfrei."},"sc65":{items:"62086485246220:1,66079483592972:1",total:54.90,label:"Mit SmartCharge 65",sub:"inkl. MwSt., versandkostenfrei",ship:"Weiter zur sicheren Kasse von GREENMNKY. Versand mit DHL aus Deutschland, kostenlos."},"sc140":{items:"66075700363532:1,66079483592972:1",total:69.95,was:84.90,label:"Mit SmartCharge 140",sub:"inkl. MwSt., versandkostenfrei · du sparst 14,95 €",ship:"Weiter zur sicheren Kasse von GREENMNKY. Der Set-Rabatt wird dort automatisch abgezogen."}};
   var opt="1";
@@ -716,5 +720,6 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
   update();
 })();
 </script>
+<script src="/consent.js?v=1" defer></script>
 </body>
 </html>

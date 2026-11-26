@@ -438,10 +438,14 @@ JS = """(function(){
   var $=function(id){return document.getElementById(id)};
   var eur=function(n){return n.toFixed(2).replace(".",",")+"\\u00a0€"};
   var UTM=(function(){
-    try{var q=new URLSearchParams(location.search),o=new URLSearchParams(),has=false;
-      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});
-      if(has)return o.toString();}catch(e){}
-    return "utm_source=eazygadgetz&utm_medium=landingpage&utm_campaign=magnethalter";
+    var o=new URLSearchParams(),has=false;
+    try{var q=new URLSearchParams(location.search);
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","ref","fbclid","ttclid","gclid"].forEach(function(k){var v=q.get(k);if(v){o.set(k,v);has=true;}});}catch(e){}
+    if(!has){o.set("utm_source","eazygadgetz");o.set("utm_medium","landingpage");o.set("utm_campaign","magnethalter");}
+    /* Herkunft zusätzlich als Bestell-Attribute: steht in jeder Bestellung unter „Zusätzliche Details“, auch ohne Cookie-Zustimmung im Shop */
+    ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){var v=o.get(k);if(v)o.set("attributes["+k+"]",v.slice(0,100));});
+    o.set("attributes[landingpage]",location.pathname);
+    return o.toString();
   })();
   var OPTS=__OPTS__;
   var opt="1";
@@ -550,6 +554,7 @@ html = f"""<!DOCTYPE html>
 <script>
 {JS}
 </script>
+<script src="/consent.js?v=1" defer></script>
 </body>
 </html>
 """

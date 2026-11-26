@@ -2,6 +2,7 @@
 import pathlib
 R = pathlib.Path("/home/claude/eazygadgetz")
 STAND = "17. November 2026"
+STAND_DS = "26. November 2026"  # Datenschutz: Cookie-Banner + Meta-Pixel
 
 BASE = """<!DOCTYPE html>
 <html lang="de">
@@ -54,6 +55,7 @@ footer a:hover{{color:var(--text)}}
   <a href="https://greenmnky.de/policies/shipping-policy" rel="noopener">Versand und Zahlung</a>
 </footer>
 </div>
+<script src="/consent.js?v=1" defer></script>
 </body>
 </html>
 """
@@ -84,7 +86,7 @@ IMPRESSUM = """
 """
 
 DATENSCHUTZ = """
-<p>Diese Datenschutzerklärung gilt für die Website <strong>eazygadgetz.de</strong>. Wir halten sie bewusst kurz, weil diese Seite nur sehr wenige Daten verarbeitet: keine Cookies, kein Tracking, keine Kontoanlage.</p>
+<p>Diese Datenschutzerklärung gilt für die Website <strong>eazygadgetz.de</strong>. Wir halten sie bewusst kurz: Die Seite braucht kein Konto und kein Formular. Cookies und den Meta-Pixel nutzen wir nur, wenn du im Cookie-Banner zustimmst.</p>
 
 <h2>1. Verantwortlicher</h2>
 <div class="card">
@@ -96,28 +98,43 @@ DATENSCHUTZ = """
 <p>Diese Website wird als statische Seite über den Dienst <strong>Render</strong> (Render Services, Inc., 525 Brannan Street, Suite 300, San Francisco, CA 94107, USA) ausgeliefert. Beim Aufruf einer Seite verarbeitet der Server technisch notwendig folgende Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Datei, übertragene Datenmenge, Referrer-URL sowie Browser- und Betriebssystemkennung. Diese Zugriffsdaten dienen ausschließlich der Auslieferung, Sicherheit und Fehleranalyse der Seite und werden nicht mit anderen Daten zusammengeführt.</p>
 <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Die Verarbeitung erfolgt im Rahmen einer Auftragsverarbeitung nach Art. 28 DSGVO. Soweit dabei Daten in die USA übermittelt werden, geschieht dies auf Grundlage der Standardvertragsklauseln der EU-Kommission (Art. 46 Abs. 2 lit. c DSGVO). Server-Logfiles werden nach kurzer Zeit automatisch gelöscht.</p>
 
-<h2>3. Keine Cookies, kein Tracking</h2>
-<p>eazygadgetz.de setzt keine Cookies und verwendet keine Analyse-, Werbe- oder Social-Media-Tools. Schriftarten und Bilder werden von unserem eigenen Server geladen; es werden keine Inhalte von Drittanbietern nachgeladen. Ein Consent-Banner ist deshalb nicht erforderlich.</p>
-<p>Links, über die du auf diese Seite gelangst (z. B. aus Instagram oder TikTok), können Kampagnen-Parameter in der Adresse enthalten (sogenannte UTM-Parameter). Diese Parameter enthalten keine personenbezogenen Daten; sie werden auf dieser Seite nicht gespeichert, sondern lediglich an den Link zu unserem Shop angehängt, damit wir erkennen, über welchen Kanal eine Bestellung zustande kam.</p>
+<h2 id="cookies">3. Cookies und Einwilligung</h2>
+<p>Beim ersten Besuch fragen wir dich in einem Banner, ob wir den Meta-Pixel nutzen dürfen (siehe Punkt 4). „Ablehnen“ und „Akzeptieren“ sind gleichwertig; ohne dein Ja wird der Meta-Pixel nicht geladen, es werden keine Cookies gesetzt und keine Daten an Meta übertragen.</p>
+<p>Deine Auswahl speichern wir im Speicher deines Browsers (localStorage, Eintrag „ez_consent“ mit deiner Auswahl und dem Zeitpunkt), damit der Banner nicht bei jedem Seitenaufruf erscheint. Das ist für die Funktion der Seite unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG, Art. 6 Abs. 1 lit. f DSGVO). Der Eintrag bleibt, bis du ihn in deinem Browser löschst; nach 12 Monaten fragen wir dich erneut.</p>
+<p>Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen oder neu erteilen: <a href="#cookies" data-consent-open>Cookie-Einstellungen öffnen</a> (den Link findest du auch unten auf jeder Seite). Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt unberührt.</p>
+<p>Schriftarten und Bilder laden wir von unserem eigenen Server. Ohne deine Einwilligung werden keine Inhalte von Drittanbietern nachgeladen.</p>
 
-<h2>4. Bestellung über greenmnky.de</h2>
+<h2 id="meta-pixel">4. Meta-Pixel (nur mit Einwilligung)</h2>
+<p>Wenn du zustimmst, nutzen wir den Meta-Pixel der <strong>Meta Platforms Ireland Limited</strong>, Merrion Road, Dublin 4, D04 X2K5, Irland („Meta“). Damit messen wir, ob unsere Werbeanzeigen auf Facebook und Instagram wirken (zum Beispiel, ob nach dem Klick auf eine Anzeige diese Seite aufgerufen oder auf „Bestellen“ geklickt wurde). Meta nutzt die Daten außerdem, um unsere Anzeigen zu verbessern und Personen anzuzeigen, die sich dafür interessieren könnten.</p>
+<p><strong>Verarbeitete Daten:</strong> aufgerufene Seiten, angesehenes Produkt mit Preis, Klicks auf „Bestellen“ (Produkt, Menge, Betrag), Adresse der Seite und Referrer, IP-Adresse, Browser- und Geräteinformationen, Zeitpunkt sowie Kennungen in Cookies (<code>_fbp</code> und <code>_fbc</code>, Speicherdauer jeweils bis zu 90 Tage) und die Klick-Kennung aus einer Anzeige (<code>fbclid</code>). Bist du bei Facebook oder Instagram angemeldet, kann Meta diese Daten deinem Konto zuordnen.</p>
+<p><strong>Gemeinsame Verantwortung:</strong> Für die Erhebung der Daten auf dieser Seite und ihre Übermittlung an Meta sind wir und Meta gemeinsam verantwortlich (Art. 26 DSGVO). Die Einzelheiten regelt der <a href="https://www.facebook.com/legal/controller_addendum" rel="noopener">Zusatz für Verantwortliche von Meta</a>. Für die weitere Verarbeitung nach der Übermittlung ist allein Meta verantwortlich. Deine Rechte kannst du sowohl bei uns als auch bei Meta geltend machen.</p>
+<p><strong>Übermittlung in die USA:</strong> Meta kann Daten an die Meta Platforms, Inc. in den USA übermitteln. Meta Platforms, Inc. ist unter dem EU-U.S. Data Privacy Framework zertifiziert; die Übermittlung stützt sich damit auf den Angemessenheitsbeschluss der EU-Kommission (Art. 45 DSGVO).</p>
+<p><strong>Rechtsgrundlage</strong> ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG), die du jederzeit widerrufen kannst (siehe Punkt 3). Beim Widerruf löschen wir die Meta-Cookies dieser Seite in deinem Browser.</p>
+<p>Mehr dazu in der <a href="https://www.facebook.com/privacy/policy/" rel="noopener">Datenschutzrichtlinie von Meta</a>. Welche Werbung dir Meta zeigt, kannst du in deinen <a href="https://accountscenter.facebook.com/ad_preferences" rel="noopener">Werbepräferenzen bei Meta</a> einstellen.</p>
+<p>Deine Auswahl hier gilt nur für eazygadgetz.de. Unser Shop greenmnky.de fragt dich dort separat.</p>
+
+<h2>5. Herkunft deiner Bestellung</h2>
+<p>Links, über die du auf diese Seite gelangst (z. B. aus Instagram, TikTok oder einer Anzeige), können Kampagnen-Parameter in der Adresse enthalten (sogenannte UTM-Parameter und Klick-Kennungen wie <code>fbclid</code>). Diese Parameter hängen wir an den Link zu unserem Shop an. Zusätzlich geben wir mit, über welche unserer Seiten du kommst und zu welcher Kampagne sie gehört (z. B. „eazygadgetz / landingpage / phototag“).</p>
+<p>Wenn du bestellst, wird diese Herkunft (Quelle, Medium, Kampagne, Anzeige und die Seite, über die du kamst) zusammen mit deiner Bestellung im Shop gespeichert. So sehen wir, welche Seite und welche Werbung zu Bestellungen führt. Auf eazygadgetz.de selbst speichern wir diese Angaben nicht. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Auswertung unserer Werbung). Die Angaben werden mit der Bestellung gespeichert und mit ihr nach Ablauf der gesetzlichen Aufbewahrungsfristen gelöscht.</p>
+
+<h2>6. Bestellung über greenmnky.de</h2>
 <p>Wenn du auf „Jetzt bestellen“ klickst, wirst du zu unserem Online-Shop <a href="https://greenmnky.de" rel="noopener">greenmnky.de</a> weitergeleitet, der auf der Plattform Shopify betrieben wird. Erst dort gibst du Daten für deine Bestellung ein. Für die Verarbeitung im Shop und im Bestellprozess gilt die <a href="https://greenmnky.de/policies/privacy-policy" rel="noopener">Datenschutzerklärung von greenmnky.de</a>.</p>
 
-<h2>5. Kontaktaufnahme</h2>
+<h2>7. Kontaktaufnahme</h2>
 <p>Wenn du uns per E-Mail oder Telefon kontaktierst, verarbeiten wir deine Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b DSGVO bzw. lit. f DSGVO). Die Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
 
-<h2>6. Externe Links</h2>
-<p>Diese Seite verlinkt auf unsere Profile bei Instagram und TikTok sowie auf unseren Shop. Für die Inhalte und die Datenverarbeitung der verlinkten Seiten sind deren Betreiber verantwortlich. Es sind keine Plugins dieser Dienste eingebunden; Daten werden erst übertragen, wenn du einen Link anklickst.</p>
+<h2>8. Externe Links</h2>
+<p>Diese Seite verlinkt auf unsere Profile bei Instagram und TikTok sowie auf unseren Shop. Für die Inhalte und die Datenverarbeitung der verlinkten Seiten sind deren Betreiber verantwortlich. Abgesehen vom Meta-Pixel (nur mit Einwilligung, siehe Punkt 4) sind keine Dienste oder Plugins dieser Anbieter eingebunden; Daten werden sonst erst übertragen, wenn du einen Link anklickst.</p>
 
-<h2>7. Deine Rechte</h2>
-<p>Du hast gegenüber uns das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21). Wende dich dafür an <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>.</p>
+<h2>9. Deine Rechte</h2>
+<p>Du hast gegenüber uns das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21). Eine erteilte Einwilligung kannst du jederzeit widerrufen (Art. 7 Abs. 3 DSGVO). Wende dich dafür an <a href="mailto:b2csupport@greenmnky.de">b2csupport@greenmnky.de</a>.</p>
 <p>Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren. Für uns zuständig ist das Bayerische Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach, <a href="https://www.lda.bayern.de" rel="noopener">www.lda.bayern.de</a>.</p>
 
-<h2>8. Änderungen</h2>
+<h2>10. Änderungen</h2>
 <p>Wir passen diese Erklärung an, wenn sich die Website oder die Rechtslage ändert. Es gilt jeweils die hier veröffentlichte Fassung.</p>
 """
 
-for slug, title, body in [("impressum", "Impressum", IMPRESSUM), ("datenschutz", "Datenschutz", DATENSCHUTZ)]:
+for slug, title, body, stand in [("impressum", "Impressum", IMPRESSUM, STAND), ("datenschutz", "Datenschutz", DATENSCHUTZ, STAND_DS)]:
     d = R / slug; d.mkdir(exist_ok=True)
-    (d / "index.html").write_text(BASE.format(title=title, stand=STAND, body=body))
+    (d / "index.html").write_text(BASE.format(title=title, stand=stand, body=body))
     print("wrote", d / "index.html")
