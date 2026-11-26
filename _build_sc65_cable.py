@@ -42,6 +42,7 @@ def page(**k):
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<script>/* /phototag ohne Schrägstrich -> /phototag/ (sonst laden Bilder und Schriften nicht) */var p=location.pathname;if(p.slice(-1)!="/"&&p.split("/").pop().indexOf(".")<0)location.replace(p+"/"+location.search+location.hash)</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{k['title']}</title>
 <meta name="description" content="{k['desc']}">
