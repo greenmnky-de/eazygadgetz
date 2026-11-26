@@ -55,7 +55,7 @@ footer a:hover{{color:var(--text)}}
   <a href="https://greenmnky.de/policies/shipping-policy" rel="noopener">Versand und Zahlung</a>
 </footer>
 </div>
-<script src="/consent.js?v=1" defer></script>
+<script src="/consent.js?v=2" defer></script>
 </body>
 </html>
 """

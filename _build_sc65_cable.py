@@ -157,7 +157,7 @@ def page(**k):
   update();
 }})();
 </script>
-<script src="/consent.js?v=1" defer></script>
+<script src="/consent.js?v=2" defer></script>
 </body>
 </html>
 """

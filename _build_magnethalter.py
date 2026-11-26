@@ -554,7 +554,7 @@ html = f"""<!DOCTYPE html>
 <script>
 {JS}
 </script>
-<script src="/consent.js?v=1" defer></script>
+<script src="/consent.js?v=2" defer></script>
 </body>
 </html>
 """

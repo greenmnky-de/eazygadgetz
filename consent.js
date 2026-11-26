@@ -122,10 +122,9 @@
     box.id = "ez-cc"; box.setAttribute("role", "dialog"); box.setAttribute("aria-labelledby", "ez-cc-t"); box.setAttribute("aria-describedby", "ez-cc-d");
     box.hidden = true;
     box.innerHTML =
-      '<h2 id="ez-cc-t">Cookies und Meta-Pixel</h2>' +
-      '<p id="ez-cc-d">Dürfen wir den Meta-Pixel nutzen? Damit sehen wir, ob unsere Werbung auf Instagram und Facebook ankommt, und Meta kann sie passender ausspielen. ' +
-      'Dafür werden Cookies gesetzt und Meta erhält Daten zu deinem Besuch, auch in den USA. Ohne dein Ja passiert das nicht. ' +
-      'Du kannst es jederzeit unter „Cookie-Einstellungen“ unten auf der Seite ändern. <a href="/datenschutz/#meta-pixel">Mehr in der Datenschutzerklärung</a></p>' +
+      '<h2 id="ez-cc-t">Cookies</h2>' +
+      '<p id="ez-cc-d">Wir nutzen Cookies, um zu sehen, ob unsere Werbung auf Instagram und Facebook ankommt. Dabei erhält Meta Daten zu deinem Besuch, auch in den USA. Ohne dein Ja passiert das nicht. ' +
+      'Ändern kannst du das jederzeit unter „Cookie-Einstellungen“ unten auf der Seite. <a href="/datenschutz/#cookies">Mehr in der Datenschutzerklärung</a></p>' +
       '<div class="ez-cc-b"><button type="button" data-ez="0">Ablehnen</button><button type="button" data-ez="1">Akzeptieren</button></div>';
     box.addEventListener("click", function (e) {
       var b = e.target.closest && e.target.closest("button[data-ez]");
